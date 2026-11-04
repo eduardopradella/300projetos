@@ -705,6 +705,27 @@ mark, .hl {
   .btn, .faq__answer { transition: none; animation: none; }
 }
 
+/* Mockup com moldura */
+.mockup-box{max-width:440px;margin:28px auto 22px;padding:18px 16px 16px;text-align:center;background:linear-gradient(160deg,#fff 0%,var(--red-tint) 100%);border:3px solid var(--red);border-radius:14px;box-shadow:0 0 0 6px #fff,0 0 0 9px var(--red-bright),0 14px 34px rgba(204,0,0,.35)}
+.mockup-box__title{display:inline-block;margin:0 0 12px;padding:8px 14px;background:var(--red);color:#fff;border-radius:6px;font-family:var(--font-title);font-weight:800;font-size:clamp(1.05rem,4.6vw,1.4rem);line-height:1.15;text-transform:uppercase}
+.mockup-box__img{display:block;width:100%;max-width:340px;height:auto;margin:0 auto;filter:drop-shadow(0 10px 18px rgba(0,0,0,.3))}
+.mockup-box__tag{margin:12px 0 0;font-weight:700;font-size:.95rem;color:var(--red-dark)}
+@media (max-width:480px){.mockup-box{margin:22px 6px;padding:14px 12px}.mockup-box__img{max-width:260px}}
+/* Garantia */
+.garantia{display:flex;gap:16px;align-items:center;margin:26px 0;padding:18px;border:2px dashed var(--red);border-radius:12px;background:var(--red-tint)}
+.garantia__selo{flex:0 0 96px;height:96px;margin:0;display:flex;flex-direction:column;justify-content:center;border-radius:50%;background:var(--red);color:#fff;text-align:center;font-family:var(--font-title);font-size:.8rem;line-height:1.1;box-shadow:0 0 0 4px #fff,0 0 0 6px var(--red)}
+.garantia__selo strong{font-size:1.3rem}
+.garantia h3{margin:0 0 6px;font-family:var(--font-title)}
+.garantia p{margin:0}
+@media (max-width:480px){.garantia{flex-direction:column;text-align:center}}
+/* Pulsar brilhante nos botões */
+.btn{position:relative;overflow:hidden;animation:ctaPulse 1.6s ease-in-out infinite}
+.sticky-cta{overflow:hidden;animation:ctaGlow 1.6s ease-in-out infinite}
+@keyframes ctaGlow{0%,100%{box-shadow:0 6px 18px rgba(204,0,0,.4)}50%{box-shadow:0 0 28px rgba(255,40,40,.85)}}
+.btn::after,.sticky-cta::after{content:"";position:absolute;top:0;left:-75%;width:50%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:ctaShine 2.6s ease-in-out infinite;pointer-events:none}
+@keyframes ctaPulse{0%,100%{transform:scale(1);box-shadow:0 6px 18px rgba(204,0,0,.4),0 0 0 0 rgba(230,0,0,.55)}50%{transform:scale(1.045);box-shadow:0 8px 26px rgba(230,0,0,.6),0 0 0 12px rgba(230,0,0,0)}}
+@keyframes ctaShine{0%{left:-75%}60%,100%{left:130%}}
+@media (prefers-reduced-motion:reduce){.btn,.sticky-cta,.btn::after,.sticky-cta::after{animation:none}}
 </style>
 
   <!-- =====================================================================
@@ -765,6 +786,7 @@ mark, .hl {
         <p>O pior? Ele sabia que havia pessoas a vender exactamente o mesmo tipo de madeira transformada em porta-chaves, floreiras e organizadores… e a faturar 250€ num único sábado. Enquanto ele continuava a acumular “lixo”.</p>
         <img class="hero-img" src="image/terceiraaimagem.webp" width="1672" height="941" loading="lazy" alt="Retalhos de madeira transformados em peças">
         <h2>A crença que estava a destruir o seu rendimento</h2>
+        <img class="hero-img" src="image/quartaimagem.webp" width="1672" height="941" loading="lazy" alt="Retalhos de madeira acumulados na garagem">
         <p>Durante anos Vicente acreditou numa mentira confortável que milhares de portugueses ainda acreditam hoje: “Para ganhar dinheiro com madeira preciso de madeira nova, de máquinas profissionais e de projetos elaborados.”</p>
         <p>Quando via uma ripa pequena, pensava: “Isto não serve para nada.” Quando via um retalho irregular de MDF, pensava: “Só se fosse maior.” Quando tentava inventar alguma coisa, perdia 1 a 2 horas a medir, desenhar e no final estragava a peça.</p>
         <p>Resultado? Mais madeira no lixo. Mais frustração. Mais dinheiro a sair do bolso em vez de entrar.</p>
@@ -774,12 +796,39 @@ mark, .hl {
         <!-- O botão flutuante (sticky) aparece depois desta secção -->
         <div id="chamado">
           <h2>A descoberta que mudou tudo</h2>
+        <img class="hero-img" src="image/quintaimagem.webp" width="1672" height="941" loading="lazy" alt="Peças vendáveis feitas com sobras de madeira">
           <p>Um dia Vicente parou de olhar para os retalhos como resto e começou a olhar para eles como stock pago a zero custo. E percebeu algo que a maioria das pessoas nunca vê: a maior parte dos produtos que se vendem bem em floristas, feiras, OLX e Marketplace não precisa de tábuas grandes. Precisa de sobras bem aproveitadas.</p>
           <p>Um pedaço de MDF “inútil” transforma-se num organizador de casa de banho de 45 a 80€. Uma ripa “demasiado curta” vira um porta-chaves magnético de 15 a 25€. Duas ou três sobras de palete viram um suporte que o florista compra por 20 a 30€ e pede mais dez na semana seguinte.</p>
           <p>O problema nunca tinha sido a madeira. O problema era tentar inventar projetos do zero sem um sistema. Foi aí que ele descobriu +300 Projetos com Restos de Madeira, um guia passo a passo, com projetos que lhe mostram como transformar uma pilha de madeira acumulada numa fonte de rendimento lucrativa. Nos primeiros dias, estava céptico e não acreditava que tudo aquilo pudesse resultar. Mas, assim que começou a pôr os projetos em prática, tudo mudou. No segundo dia, já tinha vendido o seu primeiro projeto a uma floricultura. No terceiro dia, conseguiu vender mais 3 peças e obteve 45 € de lucro. Na segunda semana, apenas a aproveitar o seu tempo livre, já tinha conseguido lucrar 500 €. Aquela pilha de madeira que estava esquecida há anos na garagem, a ocupar espaço e a acumular pó, tinha-se transformado numa nova oportunidade de rendimento.</p>
         </div>
+<figure class="mockup-box">
+          <p class="mockup-box__title">+300 Projetos com Restos de Madeira</p>
+          <img class="mockup-box__img" src="image/mockup.webp" loading="lazy" alt="Mockup do e-book +300 Projetos com Restos de Madeira">
+          <p class="mockup-box__tag">Acesso imediato · Garantia de 7 dias</p>
+        </figure>
+        <div class="cta-wrap">
+          <a class="btn btn--lg" data-cta href="https://pay.hotmart.com/D108340285P?off=iprg4sm0">QUERO OS +300 PROJETOS AGORA — 29€</a>
+        </div>
+
+        <h2>“Mas isto funciona para mim?”</h2>
+        <ul>
+          <li><strong>“Não tenho máquinas profissionais.”</strong> → Não precisa. Todos os projetos foram pensados para serra (ou tico-tico), berbequim, cola e parafusos.</li>
+          <li><strong>“Os meus retalhos são pequenos demais.”</strong> → Há projetos a partir de sobras de 2 cm. É precisamente para isso que o guia existe.</li>
+          <li><strong>“Não tenho experiência.”</strong> → Cada projeto traz medidas exactas, lista de corte e passo a passo. Só tem de seguir.</li>
+          <li><strong>“Não tenho tempo.”</strong> → Muitas peças fazem-se em minutos e vendem-se por impulso em feiras, OLX e Marketplace.</li>
+          <li><strong>“Não sei se alguém compra.”</strong> → Floreiras, organizadores e porta-chaves já se vendem todos os dias. Você só passa a produzi-los com o material que já pagou.</li>
+        </ul>
+
+        <div class="garantia">
+          <p class="garantia__selo">GARANTIA<br><strong>7 DIAS</strong></p>
+          <div>
+            <h3>Risco zero para si</h3>
+            <p>Entre, abra o guia e experimente os projetos durante 7 dias. Se por qualquer motivo achar que não é para si, basta pedir o reembolso pela Hotmart e recebe 100% do seu dinheiro de volta. Sem perguntas, sem complicações. O risco é todo nosso.</p>
+          </div>
+        </div>
 
         <h2>O mecanismo que separa quem acumula entulho de quem fatura</h2>
+        <img class="hero-img" src="image/sextaimagem.webp" width="1672" height="941" loading="lazy" alt="Sistema de organização de sobras de madeira">
         <p>O +300 Projetos com Restos de Madeira não é mais uma lista de ideias bonitas. É um sistema radicalmente simples que organiza a madeira que já tem em três gavetas práticas:</p>
         <ul>
           <li><strong>Sobra Curta (a partir de 2 cm)</strong> → porta-chaves, descansos de panela, cabides e porta-lápis. Peças de execução em minutos e venda por impulso.</li>
@@ -801,7 +850,7 @@ mark, .hl {
 
         <div class="cta-wrap" id="preco">
           <!-- LINK HOTMART: definido em js/main.js -->
-          <a class="btn btn--lg" data-cta href="https://pay.hotmart.com/XXXXXXXXX">QUERO TRANSFORMAR OS MEUS RETALHOS EM DINHEIRO — 29€</a>
+          <a class="btn btn--lg" data-cta href="https://pay.hotmart.com/D108340285P?off=iprg4sm0">QUERO TRANSFORMAR OS MEUS RETALHOS EM DINHEIRO — 29€</a>
         </div>
 
         <p>A madeira já está paga. O que falta é o método. E o tempo, esse, continua a passar.</p>
@@ -826,7 +875,7 @@ mark, .hl {
   </footer>
 
   <!-- Botão flutuante (sticky) — aparece depois da secção "O Chamado" -->
-  <a class="sticky-cta" id="stickyCta" data-cta href="https://pay.hotmart.com/XXXXXXXXX" aria-label="Quero os 300 Projetos por 29 euros">
+  <a class="sticky-cta" id="stickyCta" data-cta href="https://pay.hotmart.com/D108340285P?off=iprg4sm0" aria-label="Quero os 300 Projetos por 29 euros">
     Quero os 300 Projetos por 29€
   </a>
 
@@ -845,7 +894,7 @@ mark, .hl {
      (O index.html tem o mesmo placeholder no href como fallback sem JS —
       se quiseres, faz também "Substituir tudo" nesse ficheiro.)
      ----------------------------------------------------------------------- */
-  var HOTMART_URL = 'https://pay.hotmart.com/XXXXXXXXX';
+  var HOTMART_URL = 'https://pay.hotmart.com/D108340285P?off=iprg4sm0';
 
   var ctas = document.querySelectorAll('[data-cta]');
   ctas.forEach(function (a) {
