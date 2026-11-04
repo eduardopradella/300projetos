@@ -1,0 +1,632 @@
+/* ==========================================================================
+   +300 Projetos com Sobras de Madeira — Advertorial
+   Estilo: portal de notícias (vermelho / preto / branco), mobile-first.
+   Sem frameworks.
+   ========================================================================== */
+
+/* ---------- 1. Variáveis ---------- */
+:root {
+  /* Vermelho de portal de notícias */
+  --red: #CC0000;
+  --red-dark: #9E0000;
+  --red-bright: #E60000;
+  --red-tint: #FDECEC;
+
+  /* Pretos e cinzentos */
+  --black: #0A0A0A;
+  --ink: #141414;        /* texto */
+  --grey-900: #222222;
+  --grey-700: #444444;
+  --grey-500: #6B6B6B;
+  --grey-300: #CFCFCF;
+  --grey-200: #E4E4E4;
+  --grey-100: #F2F2F2;
+  --white: #FFFFFF;
+
+  --bg: var(--white);
+  --text: var(--ink);
+  --muted: var(--grey-500);
+
+  --font-title: "Roboto Condensed", "Arial Narrow", Arial, sans-serif;
+  --font-body: "Roboto", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+  --radius: 4px;           /* portais de notícias: cantos pouco arredondados */
+  --radius-btn: 6px;
+  --shadow-soft: 0 2px 10px rgba(0, 0, 0, .12);
+  --shadow-btn: 0 6px 18px rgba(204, 0, 0, .4);
+  --container: 740px;
+}
+
+/* ---------- 2. Reset e base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1.125rem;       /* 18px */
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+img, svg { max-width: 100%; display: block; }
+p { margin: 0 0 1.15em; }
+h1, h2, h3, h4 {
+  font-family: var(--font-title);
+  color: var(--black);
+  line-height: 1.12;
+  margin: 0 0 .6em;
+  font-weight: 800;
+}
+a { color: inherit; }
+strong { font-weight: 700; }
+
+:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 3px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+.section { padding-block: 48px; border-top: 1px solid var(--grey-200); }
+.section--grey { background: var(--grey-100); }
+.section--tight { padding-block: 36px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* Fundo preto (secção de preço, footer) */
+.dark-bg {
+  background-color: var(--black);
+  background-image: linear-gradient(180deg, #161616 0%, #0A0A0A 100%);
+  color: var(--white);
+}
+
+/* Etiqueta de categoria (bloco vermelho) */
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-title);
+  font-size: .85rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--red);
+  padding: 4px 10px 3px;
+  margin-bottom: .9rem;
+}
+
+h2.section-title {
+  font-size: clamp(1.75rem, 6vw, 2.5rem);
+  letter-spacing: -.01em;
+  padding-top: .1em;
+}
+
+/* Destaque estilo marcador */
+mark, .hl {
+  background: var(--red-tint);
+  color: var(--red-dark);
+  font-weight: 700;
+  padding: 0 .15em;
+  box-shadow: inset 0 -2px 0 var(--red);
+}
+.box-hl {
+  background: var(--grey-100);
+  border-left: 5px solid var(--red);
+  padding: 16px 20px;
+  margin: 1.5em 0;
+  font-weight: 700;
+}
+
+/* ---------- 3. Header ---------- */
+.ad-bar {
+  background: var(--grey-900);
+  color: #BDBDBD;
+  text-align: center;
+  font-family: var(--font-title);
+  font-size: .75rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+}
+.site-header {
+  background: var(--black);
+  color: var(--white);
+  border-bottom: 4px solid var(--red);
+}
+.site-header .container {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding-block: 12px;
+  max-width: 1000px;
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-title); font-weight: 800;
+  font-size: 1.1rem; line-height: 1.05; color: var(--white);
+  text-decoration: none; text-transform: uppercase; letter-spacing: .01em;
+}
+.brand__mark {
+  flex: none; height: 38px; padding: 0 10px; border-radius: 2px;
+  background: var(--red); color: var(--white);
+  display: grid; place-items: center;
+  font-size: 1.15rem; font-weight: 800;
+}
+.badge-access {
+  flex: none;
+  border: 1px solid var(--grey-500);
+  color: var(--white);
+  font-family: var(--font-title);
+  font-size: .78rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 6px 12px; border-radius: 2px;
+}
+/* Faixa de secções (decorativa, estilo portal) */
+.section-strip {
+  background: var(--white);
+  border-bottom: 1px solid var(--grey-200);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.section-strip .container {
+  max-width: 1000px;
+  display: flex; gap: 22px; padding-block: 10px;
+  font-family: var(--font-title); font-weight: 700; font-size: .85rem;
+  text-transform: uppercase; letter-spacing: .06em; color: var(--grey-700);
+}
+.section-strip span:first-child { color: var(--red); }
+
+/* ---------- 4. Hero ---------- */
+.hero { padding-top: 28px; padding-bottom: 28px; }
+.hero__kicker {
+  display: inline-block;
+  background: var(--red); color: var(--white);
+  font-family: var(--font-title);
+  font-size: .9rem; font-weight: 800; letter-spacing: .08em;
+  text-transform: uppercase; padding: 5px 12px 4px; margin-bottom: 14px;
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 9vw, 3.9rem);
+  font-weight: 800;
+  letter-spacing: -.015em;
+  line-height: 1.04;
+  margin-bottom: .4em;
+}
+.hero h1 mark { background: var(--red); color: var(--white); box-shadow: none; padding: 0 .12em; }
+.hero__sub {
+  font-family: var(--font-body);
+  font-size: clamp(1.15rem, 3.8vw, 1.4rem);
+  color: var(--grey-700);
+  line-height: 1.4;
+  margin-bottom: 1.1em;
+}
+.byline {
+  display: flex; flex-wrap: wrap; gap: 4px 14px;
+  font-family: var(--font-title);
+  font-size: .85rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--grey-500);
+  padding-block: 12px;
+  border-block: 1px solid var(--grey-200);
+  margin-bottom: 22px;
+}
+.byline span:first-child { color: var(--red); font-weight: 800; }
+.stack-lines { margin-bottom: 1.2em; padding-left: 16px; border-left: 4px solid var(--red); }
+.stack-lines span { display: block; font-weight: 700; }
+.big-quote {
+  font-family: var(--font-title);
+  font-size: clamp(1.45rem, 5vw, 1.9rem);
+  font-weight: 800; line-height: 1.2;
+  color: var(--black);
+  border-top: 4px solid var(--red);
+  padding: 14px 0 0;
+  margin: 1.6em 0;
+}
+
+/* ---------- 5. Placeholders de imagem ---------- */
+.image-placeholder {
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  width: 100%; min-width: 0;
+  min-height: 220px;
+  margin: 1.6em 0;
+  padding: 16px;
+  background: var(--grey-100);
+  border: 2px dashed var(--grey-500);
+  border-radius: var(--radius);
+  color: var(--grey-700);
+  font-size: .92rem; font-weight: 600; line-height: 1.4;
+}
+.image-placeholder--hero { min-height: 280px; aspect-ratio: 16 / 10; margin-bottom: .5em; }
+.image-placeholder--wide { min-height: 200px; aspect-ratio: 16 / 9; }
+.image-placeholder--square { min-height: 0; aspect-ratio: 1 / 1; margin: 0; padding: 8px; font-size: .74rem; }
+.image-placeholder--mockup { min-height: 260px; aspect-ratio: 4 / 3; }
+.image-placeholder--icon { min-height: 0; aspect-ratio: 1 / 1; margin: 0; font-size: .78rem; padding: 8px; }
+.placeholder-row { display: grid; gap: 12px; grid-template-columns: repeat(3, 1fr); margin: 1.6em 0; }
+.placeholder-row .image-placeholder { margin: 0; }
+.photo-caption {
+  font-size: .82rem; color: var(--grey-500); margin-bottom: 1.6em;
+  padding-bottom: 12px; border-bottom: 1px solid var(--grey-200);
+}
+
+/* ---------- 6. Botões (CTA) ---------- */
+.cta-wrap { text-align: center; margin: 2.2em 0 .4em; }
+.btn {
+  display: inline-block;
+  width: 100%;
+  max-width: 560px;
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  padding: 20px 24px;
+  border-radius: var(--radius-btn);
+  border: 0;
+  border-bottom: 4px solid var(--red-dark);
+  box-shadow: var(--shadow-btn);
+  transition: transform .15s ease, background .2s ease, box-shadow .2s ease;
+  cursor: pointer;
+}
+.btn:hover, .btn:focus-visible {
+  background: var(--black);
+  border-bottom-color: var(--red);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .35);
+}
+.btn:active { transform: translateY(1px); }
+.btn--lg { font-size: 1.4rem; padding: 24px 26px; }
+.cta-note { font-size: .88rem; color: var(--muted); margin-top: 12px; }
+
+/* Botão flutuante (sticky) */
+.sticky-cta {
+  position: fixed;
+  right: 14px;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  z-index: 50;
+  max-width: calc(100vw - 28px);
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 1.02rem;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  line-height: 1.2;
+  text-decoration: none;
+  padding: 15px 22px;
+  border-radius: 999px;
+  border: 2px solid var(--white);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .4);
+  opacity: 0;
+  transform: translateY(24px) scale(.96);
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity .35s ease, transform .35s ease, visibility .35s;
+}
+.sticky-cta.is-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  visibility: visible;
+  animation: pulse 2.2s ease-in-out infinite;
+}
+.sticky-cta:hover { background: var(--black); }
+@keyframes pulse {
+  0%   { box-shadow: 0 10px 26px rgba(0,0,0,.4), 0 0 0 0 rgba(230,0,0,.7); transform: scale(1); }
+  50%  { transform: scale(1.04); }
+  70%  { box-shadow: 0 10px 26px rgba(0,0,0,.4), 0 0 0 18px rgba(230,0,0,0); }
+  100% { box-shadow: 0 10px 26px rgba(0,0,0,.4), 0 0 0 0 rgba(230,0,0,0); transform: scale(1); }
+}
+
+/* ---------- 7. Mundo Ordinário ---------- */
+.pain-list { list-style: none; padding: 0; margin: 1.4em 0; display: grid; gap: 8px; }
+.pain-list li {
+  background: var(--grey-100); border-left: 4px solid var(--grey-700);
+  padding: 13px 16px 13px 46px;
+  position: relative; font-weight: 700;
+}
+.pain-list li::before {
+  content: "✕"; position: absolute; left: 16px; top: 12px;
+  color: var(--red); font-weight: 900;
+}
+
+/* ---------- 8. Chamado ---------- */
+.big-numbers { display: grid; gap: 12px; margin: 1.8em 0; }
+.big-number {
+  background: var(--black); color: var(--white);
+  padding: 16px 20px; text-align: center;
+  border-bottom: 6px solid var(--red);
+}
+.big-number strong {
+  display: block;
+  font-family: var(--font-title); font-weight: 800;
+  font-size: clamp(2.8rem, 13vw, 3.8rem);
+  color: var(--white); line-height: 1;
+}
+.big-number span { font-family: var(--font-title); font-size: .95rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: #BDBDBD; }
+.big-number--max { background: var(--red); border-bottom-color: var(--black); }
+.big-number--max span { color: var(--white); }
+
+.idea-cards { display: grid; gap: 14px; margin: 1.6em 0; }
+.idea-card {
+  background: var(--white); border: 1px solid var(--grey-200);
+  border-top: 4px solid var(--red);
+  padding: 16px;
+  display: grid; grid-template-columns: 96px 1fr; gap: 16px; align-items: center;
+  box-shadow: var(--shadow-soft);
+}
+.idea-card h3 { font-size: 1.2rem; margin-bottom: .3em; }
+.idea-card p { margin: 0 0 .5em; font-size: 1rem; line-height: 1.5; }
+.money-line { display: flex; flex-wrap: wrap; gap: 6px 14px; font-weight: 700; font-size: .98rem; }
+.money-line .cost { color: var(--muted); }
+.money-line .sell { color: var(--white); background: var(--black); padding: 0 8px; border-radius: 2px; }
+.saturday {
+  text-align: center;
+  background: var(--red);
+  color: var(--white);
+  padding: 24px 18px;
+  margin: 1.8em 0;
+}
+.saturday__big {
+  font-family: var(--font-title); font-weight: 800; text-transform: uppercase;
+  font-size: clamp(1.9rem, 8vw, 2.7rem); line-height: 1.05; display: block;
+}
+.saturday p { margin: .4em 0 0; font-weight: 700; font-size: 1.2rem; }
+.zero-line { display: grid; gap: 8px; grid-template-columns: 1fr 1fr; margin: 1.4em 0; }
+.zero-line div {
+  background: var(--grey-100); border-top: 3px solid var(--black);
+  padding: 12px 14px; font-weight: 600; font-size: 1rem; line-height: 1.35; text-align: center;
+}
+
+/* ---------- 9. Recusa ---------- */
+.excuses { display: grid; gap: 10px; margin: 1.6em 0; }
+.excuse {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--grey-300);
+  border-left: 5px solid var(--grey-700);
+  padding: 14px 18px;
+  margin: 0;
+  font-family: var(--font-title); font-weight: 700; font-size: 1.25rem; color: var(--grey-900);
+}
+.truth {
+  background: var(--grey-100); border-top: 4px solid var(--black);
+  padding: 22px 22px 8px; margin: 1.8em 0;
+}
+.truth p:last-child { font-family: var(--font-title); font-weight: 800; font-size: 1.4rem; color: var(--red); }
+
+/* ---------- 10. Mentor — 3 gavetas ---------- */
+.drawers { display: grid; gap: 14px; margin: 1.8em 0; }
+.drawer {
+  background: var(--white); border: 1px solid var(--grey-300);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+.drawer__head {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--black); color: var(--white); padding: 12px 16px;
+  border-left: 6px solid var(--red);
+}
+.drawer__num {
+  flex: none; width: 40px; height: 40px;
+  background: var(--red); color: var(--white);
+  font-family: var(--font-title); font-weight: 800; font-size: 1.5rem;
+  display: grid; place-items: center;
+}
+.drawer__head h3 { color: var(--white); margin: 0; font-size: 1.3rem; text-transform: uppercase; }
+.drawer__head small { display: block; text-transform: none; color: #BDBDBD; font-family: var(--font-body); font-weight: 500; font-size: .85rem; }
+.drawer__body { padding: 16px 18px 18px; }
+.drawer__body p { margin-bottom: .6em; font-size: 1.02rem; line-height: 1.55; }
+.drawer__price {
+  display: inline-block; background: var(--red); color: var(--white);
+  font-family: var(--font-title); font-weight: 800; letter-spacing: .03em;
+  padding: 3px 12px; font-size: 1rem; text-transform: uppercase;
+}
+
+.receive-strip {
+  display: grid; gap: 8px; grid-template-columns: repeat(3, 1fr); margin: 1.6em 0;
+  text-align: center;
+}
+.receive-strip div {
+  background: var(--grey-100); border-bottom: 4px solid var(--red);
+  padding: 12px 8px; font-family: var(--font-title); font-weight: 800; font-size: 1.1rem; text-transform: uppercase; line-height: 1.2;
+}
+.receive-strip b { display: block; font-size: 2rem; color: var(--red); }
+
+/* ---------- 11. Conta Real (tabela) ---------- */
+.profit-table { width: 100%; border-collapse: collapse; margin: 1.6em 0; font-size: 1rem; }
+.profit-table caption { text-align: left; font-weight: 600; color: var(--muted); padding-bottom: 8px; font-size: .9rem; }
+.profit-table thead th {
+  background: var(--black); color: var(--white);
+  text-align: left; padding: 13px 16px;
+  font-family: var(--font-title); font-size: .9rem;
+  letter-spacing: .08em; text-transform: uppercase;
+  border-bottom: 4px solid var(--red);
+}
+.profit-table tbody td { padding: 15px 16px; border-bottom: 1px solid var(--grey-200); background: var(--white); }
+.profit-table tbody tr:nth-child(even) td { background: var(--grey-100); }
+.profit-table td:first-child { font-weight: 700; }
+.profit-table td.profit {
+  font-family: var(--font-title); font-weight: 800; font-size: 1.35rem;
+  color: var(--red); background: var(--red-tint) !important;
+}
+
+/* Mobile: linhas da tabela viram cards */
+@media (max-width: 639px) {
+  .profit-table, .profit-table tbody, .profit-table tr, .profit-table td { display: block; width: 100%; }
+  .profit-table caption { display: block; width: 100%; }
+  .profit-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .profit-table tbody tr {
+    background: var(--white); border: 1px solid var(--grey-300);
+    margin-bottom: 14px; overflow: hidden;
+    box-shadow: var(--shadow-soft);
+  }
+  .profit-table tbody td {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    padding: 11px 16px; border-bottom: 1px solid var(--grey-200); text-align: right;
+  }
+  .profit-table tbody td::before {
+    content: attr(data-label); font-family: var(--font-title); font-size: .8rem; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--muted); text-align: left;
+  }
+  .profit-table td:first-child {
+    background: var(--black) !important; color: var(--white); text-align: left;
+    font-family: var(--font-title); font-size: 1.15rem; text-transform: uppercase;
+    display: block; border-left: 6px solid var(--red);
+  }
+  .profit-table td:first-child::before { display: none; }
+  .profit-table td.profit { border-bottom: 0; }
+}
+
+.scenarios { display: grid; gap: 12px; margin: 1.8em 0; }
+.scenario {
+  background: var(--white); border: 1px solid var(--grey-300);
+  border-top: 4px solid var(--black);
+  padding: 16px 20px;
+  display: grid; gap: 4px;
+}
+.scenario__tag { font-family: var(--font-title); font-size: .8rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--red); }
+.scenario__money { font-family: var(--font-title); font-weight: 800; font-size: clamp(1.9rem, 8vw, 2.4rem); color: var(--black); line-height: 1.05; }
+.scenario p { margin: 0; font-size: 1rem; line-height: 1.5; }
+.scenario--top { background: var(--red); border-color: var(--red); border-top-color: var(--black); color: var(--white); }
+.scenario--top .scenario__tag { color: var(--white); opacity: .9; }
+.scenario--top .scenario__money { color: var(--white); }
+
+/* ---------- 12. Decisão + lista ---------- */
+.package {
+  background: var(--white); border: 1px solid var(--grey-300);
+  margin: 1.8em 0;
+  box-shadow: var(--shadow-soft);
+}
+.package__head {
+  background: var(--black); color: var(--white); padding: 14px 20px;
+  font-family: var(--font-title); font-weight: 800; text-transform: uppercase; letter-spacing: .04em;
+  border-left: 6px solid var(--red);
+}
+.package__head span { color: #BDBDBD; font-weight: 600; text-transform: none; letter-spacing: 0; }
+.check-list { list-style: none; margin: 0; padding: 8px 20px 14px; }
+.check-list li {
+  position: relative; padding: 13px 0 13px 40px;
+  border-bottom: 1px solid var(--grey-200); font-weight: 600; line-height: 1.4;
+}
+.check-list li:last-child { border-bottom: 0; }
+.check-list li::before {
+  content: "✓"; position: absolute; left: 0; top: 12px;
+  width: 26px; height: 26px;
+  background: var(--red); color: var(--white);
+  font-weight: 900; display: grid; place-items: center; font-size: .95rem;
+}
+.check-list li:first-child { font-size: 1.1rem; }
+
+/* ---------- 13. Preço ---------- */
+.price-section { text-align: center; padding-block: 60px; border-top: 6px solid var(--red); }
+.price-section h2 { color: var(--white); }
+.price-card {
+  background: var(--white); color: var(--ink);
+  padding: 30px 20px 32px;
+  border-top: 8px solid var(--red);
+  box-shadow: 0 18px 40px rgba(0,0,0,.5);
+  margin-top: 1.6em;
+}
+.price-old { font-size: 1.15rem; color: var(--muted); }
+.price-old s { text-decoration-color: var(--red); text-decoration-thickness: 3px; font-weight: 700; }
+.price-now {
+  font-family: var(--font-title); font-weight: 800;
+  font-size: clamp(5.5rem, 28vw, 9rem); line-height: 1;
+  color: var(--red); margin: .05em 0;
+  letter-spacing: -.02em;
+}
+.price-now sup { font-size: .45em; vertical-align: .6em; }
+.price-sub { font-weight: 700; margin-bottom: 1.4em; }
+.price-trust { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; margin-top: 1.4em; font-size: .9rem; font-weight: 600; color: var(--grey-700); }
+
+/* ---------- 14. Garantia ---------- */
+.guarantee {
+  display: grid; gap: 18px; justify-items: center; text-align: center;
+  background: var(--white); border: 3px solid var(--black);
+  border-top: 8px solid var(--red);
+  padding: 28px 22px;
+  box-shadow: var(--shadow-soft);
+}
+.guarantee__seal {
+  width: 120px; height: 120px; border-radius: 50%;
+  background: var(--red);
+  color: var(--white);
+  display: grid; place-items: center; text-align: center;
+  border: 5px double var(--white);
+  outline: 3px solid var(--red);
+  font-family: var(--font-title); line-height: 1;
+}
+.guarantee__seal b { font-size: 3rem; font-weight: 800; display: block; }
+.guarantee__seal span { font-family: var(--font-title); font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.guarantee h2 { margin-bottom: .3em; text-transform: uppercase; }
+.guarantee p { margin-bottom: .8em; }
+.guarantee .payoff { font-family: var(--font-title); font-weight: 800; font-size: 1.3rem; background: var(--red-tint); border-left: 5px solid var(--red); padding: 12px 16px; text-align: left; }
+
+.closing { text-align: center; }
+.closing__line { font-family: var(--font-title); font-size: 1.6rem; font-weight: 800; color: var(--black); margin-top: 1.4em; text-transform: uppercase; }
+
+/* ---------- 15. FAQ ---------- */
+.faq { margin-top: 1.4em; display: grid; gap: 0; border-top: 3px solid var(--black); }
+.faq details { background: var(--white); border-bottom: 1px solid var(--grey-300); }
+.faq details[open] { border-left: 5px solid var(--red); }
+.faq summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 18px 16px; font-family: var(--font-title); font-weight: 800; font-size: 1.2rem; line-height: 1.25;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+"; flex: none; width: 32px; height: 32px;
+  background: var(--red); color: var(--white);
+  font-size: 1.5rem; font-weight: 700; display: grid; place-items: center; line-height: 1;
+}
+.faq details[open] summary::after { content: "–"; background: var(--black); }
+.faq__answer { padding: 0 16px 18px; font-size: 1.02rem; line-height: 1.6; animation: fadeIn .3s ease; }
+.faq__answer p:last-child { margin-bottom: 0; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+/* ---------- 16. Footer ---------- */
+.site-footer { background: var(--black); color: #A8A8A8; padding-block: 40px 90px; font-size: .88rem; line-height: 1.6; text-align: center; border-top: 4px solid var(--red); }
+.site-footer .brand { justify-content: center; color: var(--white); margin-bottom: 14px; }
+.site-footer p { margin-bottom: .8em; }
+.site-footer a { color: var(--white); }
+
+/* ---------- 17. Animação de entrada (só com JS) ---------- */
+.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.js .reveal.is-in { opacity: 1; transform: none; }
+
+/* ---------- 18. Tablet / Desktop ---------- */
+@media (min-width: 640px) {
+  .big-numbers { grid-template-columns: repeat(3, 1fr); }
+  .scenarios { grid-template-columns: repeat(3, 1fr); }
+  .idea-card { grid-template-columns: 120px 1fr; }
+  .section { padding-block: 64px; }
+  .guarantee { grid-template-columns: 140px 1fr; text-align: left; justify-items: start; align-items: center; }
+  .guarantee__seal { width: 130px; height: 130px; }
+  .btn { width: auto; min-width: 420px; }
+}
+@media (min-width: 900px) {
+  body { font-size: 1.1875rem; }
+  /* No desktop o botão flutuante é mais discreto */
+  .sticky-cta { font-size: .9rem; padding: 12px 18px; right: 22px; bottom: 22px; }
+  .sticky-cta.is-visible { opacity: .95; }
+}
+
+/* ---------- 19. Acessibilidade: menos movimento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .sticky-cta.is-visible { animation: none; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .btn, .faq__answer { transition: none; animation: none; }
+}
