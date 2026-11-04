@@ -741,7 +741,27 @@ mark, .hl {
        Evento sugerido no clique do CTA: fbq('track','InitiateCheckout');
        (ver js/main.js, função onCtaClick)
        ===================================================================== -->
-  <!-- Meta Pixel Code -->
+  <!-- Consentimento (Consent Mode v2): tem de vir antes do GTM -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+window.__consent = null;
+try { window.__consent = localStorage.getItem('cookie_consent'); } catch (e) {}
+(function () {
+  var g = window.__consent === 'granted' ? 'granted' : 'denied';
+  gtag('consent', 'default', { ad_storage: g, ad_user_data: g, ad_personalization: g, analytics_storage: g, wait_for_update: 500 });
+})();
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-52PRVXC9');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Meta Pixel Code -->
   <script>
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -751,12 +771,10 @@ mark, .hl {
   t.src=v;s=b.getElementsByTagName(e)[0];
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '3974837446145352');
+  fbq('consent', window.__consent === 'granted' ? 'grant' : 'revoke');
+fbq('init', '3974837446145352');
   fbq('track', 'PageView');
   </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=3974837446145352&ev=PageView&noscript=1"
-  /></noscript>
   <!-- End Meta Pixel Code -->
 
   <!-- Microsoft Clarity -->
@@ -766,8 +784,17 @@ mark, .hl {
           t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
           y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
       })(window, document, "clarity", "script", "z8lgivge4p");
+if (window.__consent === 'granted') { clarity('consent'); } else { clarity('consent', false); }
   </script>
   <!-- End Microsoft Clarity -->
+
+<style>
+.cookie-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--black);color:#fff;padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px));font-size:.92rem;line-height:1.45;box-shadow:0 -6px 20px rgba(0,0,0,.35)}
+.cookie-bar__in{max-width:740px;margin:0 auto}
+.cookie-bar p{margin:0 0 10px}
+.cookie-bar__btns{display:flex;gap:10px}
+.cookie-bar button{flex:1;padding:11px 12px;border:1px solid #fff;border-radius:6px;background:transparent;color:#fff;font:inherit;font-weight:700;cursor:pointer}
+</style>
 </head>
 
 <body>
@@ -897,7 +924,7 @@ mark, .hl {
       <p>Esta página é publicidade. Os valores e cenários apresentados são exemplos ilustrativos; os resultados variam consoante o esforço, as competências e as condições de cada pessoa, e não são garantidos.</p>
       <p>Este site não é afiliado ao Facebook, ao Google nem à Meta. O pagamento é processado pela Hotmart.</p>
       <!-- LINKS LEGAIS: cria as páginas e substitui os "#" -->
-      <p><a href="#">Termos de Utilização</a> · <a href="#">Política de Privacidade</a> · <a href="#">Contacto</a></p>
+      <p><a href="#">Termos de Utilização</a> · <a href="#">Política de Privacidade</a> · <a href="#">Contacto</a> · <a href="#" id="cookiePrefs">Cookies</a></p>
     </div>
   </footer>
 
@@ -923,17 +950,62 @@ mark, .hl {
      ----------------------------------------------------------------------- */
   var HOTMART_URL = 'https://pay.hotmart.com/D108340285P?off=iprg4sm0';
 
+  /* UTMs: guarda as da entrada e passa-as para o checkout da Hotmart.
+     src e sck são os campos que aparecem nos relatórios de vendas da Hotmart. */
+  var UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  var utms = {};
+  try { utms = JSON.parse(sessionStorage.getItem('utms')) || {}; } catch (e) {}
+  var query = new URLSearchParams(window.location.search);
+  if (UTM_KEYS.some(function (k) { return query.get(k); })) {
+    utms = {};
+    UTM_KEYS.forEach(function (k) { if (query.get(k)) utms[k] = query.get(k); });
+    try { sessionStorage.setItem('utms', JSON.stringify(utms)); } catch (e) {}
+  }
+  var checkout = new URL(HOTMART_URL);
+  Object.keys(utms).forEach(function (k) { checkout.searchParams.set(k, utms[k]); });
+  if (utms.utm_source) checkout.searchParams.set('src', utms.utm_source);
+  if (utms.utm_campaign) checkout.searchParams.set('sck', utms.utm_campaign);
+
   var ctas = document.querySelectorAll('[data-cta]');
   ctas.forEach(function (a) {
-    a.setAttribute('href', HOTMART_URL);
+    a.setAttribute('href', checkout.toString());
     a.addEventListener('click', onCtaClick);
   });
 
-  /* Evento de clique no CTA — descomenta quando tiveres o Pixel / GA4 */
+  /* Clique no CTA: o GTM transforma cta_click no evento begin_checkout do GA4 */
   function onCtaClick() {
-    // if (window.fbq) fbq('track', 'InitiateCheckout');
-    // if (window.gtag) gtag('event', 'begin_checkout', { value: 29, currency: 'EUR' });
+    var location = this.id === 'stickyCta' ? 'flutuante' : (this.closest('#preco') ? 'final' : 'meio');
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'cta_click', cta_location: location });
   }
+
+  /* Banner de cookies */
+  function setConsent(value) {
+    var g = value === 'granted' ? 'granted' : 'denied';
+    try { localStorage.setItem('cookie_consent', value); } catch (e) {}
+    gtag('consent', 'update', { ad_storage: g, ad_user_data: g, ad_personalization: g, analytics_storage: g });
+    if (window.fbq) fbq('consent', g === 'granted' ? 'grant' : 'revoke');
+    if (window.clarity) { if (g === 'granted') clarity('consent'); else clarity('consent', false); }
+  }
+  function showCookieBar() {
+    if (document.querySelector('.cookie-bar')) return;
+    var bar = document.createElement('div');
+    bar.className = 'cookie-bar';
+    bar.setAttribute('role', 'dialog');
+    bar.setAttribute('aria-label', 'Cookies');
+    bar.innerHTML = '<div class="cookie-bar__in"><p>Usamos cookies para medir as visitas e melhorar os nossos anúncios. Aceita?</p>' +
+      '<div class="cookie-bar__btns"><button type="button" data-v="denied">Recusar</button><button type="button" data-v="granted">Aceitar</button></div></div>';
+    bar.addEventListener('click', function (e) {
+      var v = e.target.getAttribute('data-v');
+      if (!v) return;
+      setConsent(v);
+      bar.remove();
+    });
+    document.body.appendChild(bar);
+  }
+  if (!window.__consent) showCookieBar();
+  var cookiePrefs = document.getElementById('cookiePrefs');
+  if (cookiePrefs) cookiePrefs.addEventListener('click', function (e) { e.preventDefault(); showCookieBar(); });
 
   /* -----------------------------------------------------------------------
      Botão flutuante (sticky)
