@@ -934,7 +934,7 @@ if (window.__consent === 'granted') { clarity('consent'); } else { clarity('cons
       <p>Esta página é publicidade. Os valores e cenários apresentados são exemplos ilustrativos; os resultados variam consoante o esforço, as competências e as condições de cada pessoa, e não são garantidos.</p>
       <p>Este site não é afiliado ao Facebook, ao Google nem à Meta. O pagamento é processado pela Hotmart.</p>
       <!-- LINKS LEGAIS: cria as páginas e substitui os "#" -->
-      <p><a href="#">Termos de Utilização</a> · <a href="#">Política de Privacidade</a> · <a href="#">Contacto</a> · <a href="#" id="cookiePrefs">Cookies</a></p>
+      <p><a href="termos.html">Termos de Utilização</a> · <a href="privacidade.html">Política de Privacidade</a> · <a href="contacto.html">Contacto</a> · <a href="#" id="cookiePrefs">Cookies</a></p>
     </div>
   </footer>
 
@@ -986,7 +986,8 @@ if (window.__consent === 'granted') { clarity('consent'); } else { clarity('cons
   function onCtaClick() {
     var location = this.id === 'stickyCta' ? 'flutuante' : (this.closest('#preco') ? 'final' : 'meio');
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: 'cta_click', cta_location: location });
+    window.dataLayer.push({ event: 'cta_click', cta_location: location, value: 29, currency: 'EUR' });
+    if (window.fbq) fbq('track', 'InitiateCheckout', { value: 29, currency: 'EUR' });
   }
 
   /* Banner de cookies */
@@ -1003,7 +1004,7 @@ if (window.__consent === 'granted') { clarity('consent'); } else { clarity('cons
     bar.className = 'cookie-bar';
     bar.setAttribute('role', 'dialog');
     bar.setAttribute('aria-label', 'Cookies');
-    bar.innerHTML = '<div class="cookie-bar__in"><p>Usamos cookies para medir as visitas e melhorar os nossos anúncios. Aceita?</p>' +
+    bar.innerHTML = '<div class="cookie-bar__in"><p>Usamos cookies para medir as visitas e melhorar os nossos anúncios. Aceita? <a href="privacidade.html" style="color:#fff">Saber mais</a></p>' +
       '<div class="cookie-bar__btns"><button type="button" data-v="denied">Recusar</button><button type="button" data-v="granted">Aceitar</button></div></div>';
     bar.addEventListener('click', function (e) {
       var v = e.target.getAttribute('data-v');
