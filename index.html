@@ -705,12 +705,18 @@ mark, .hl {
   .btn, .faq__answer { transition: none; animation: none; }
 }
 
-/* Mockup com moldura */
-.mockup-box{max-width:440px;margin:28px auto 22px;padding:18px 16px 16px;text-align:center;background:linear-gradient(160deg,#fff 0%,var(--red-tint) 100%);border:3px solid var(--red);border-radius:14px;box-shadow:0 0 0 6px #fff,0 0 0 9px var(--red-bright),0 14px 34px rgba(204,0,0,.35)}
-.mockup-box__title{display:inline-block;margin:0 0 12px;padding:8px 14px;background:var(--red);color:#fff;border-radius:6px;font-family:var(--font-title);font-weight:800;font-size:clamp(1.05rem,4.6vw,1.4rem);line-height:1.15;text-transform:uppercase}
-.mockup-box__img{display:block;width:100%;max-width:340px;height:auto;margin:0 auto;filter:drop-shadow(0 10px 18px rgba(0,0,0,.3))}
-.mockup-box__tag{margin:12px 0 0;font-weight:700;font-size:.95rem;color:var(--red-dark)}
-@media (max-width:480px){.mockup-box{margin:22px 6px;padding:14px 12px}.mockup-box__img{max-width:260px}}
+/* Mockup com moldura (profissional) */
+.mockup-box{position:relative;max-width:460px;margin:34px auto 24px;padding:0;text-align:center;background:#fff;border-radius:18px;overflow:hidden;
+  border:1px solid rgba(0,0,0,.08);box-shadow:0 1px 2px rgba(0,0,0,.06),0 18px 40px -12px rgba(0,0,0,.35),0 0 0 4px var(--red-tint)}
+.mockup-box::before{content:"";display:block;height:6px;background:linear-gradient(90deg,var(--red-dark),var(--red-bright),var(--red-dark))}
+.mockup-box__title{display:block;margin:0;padding:14px 18px;background:var(--red);color:#fff;font-family:var(--font-title);font-weight:800;
+  font-size:clamp(1.1rem,4.8vw,1.45rem);line-height:1.15;text-transform:uppercase;letter-spacing:.03em;text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.mockup-box__img{display:block;width:100%;max-width:330px;height:auto;margin:0 auto;padding:26px 18px 10px;box-sizing:content-box;
+  background:radial-gradient(ellipse at 50% 45%,rgba(204,0,0,.10) 0%,rgba(255,255,255,0) 65%);filter:drop-shadow(0 16px 22px rgba(0,0,0,.32))}
+.mockup-box__tag{margin:6px 18px 18px;padding:10px 12px;border-top:1px solid rgba(0,0,0,.08);font-family:var(--font-title);font-weight:700;
+  font-size:.95rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
+.mockup-box__tag::before{content:"✔ ";color:var(--red)}
+@media (max-width:480px){.mockup-box{margin:26px 4px 20px;border-radius:14px}.mockup-box__img{max-width:250px;padding:20px 12px 6px}}
 /* Garantia */
 .garantia{display:flex;gap:16px;align-items:center;margin:26px 0;padding:18px;border:2px dashed var(--red);border-radius:12px;background:var(--red-tint)}
 .garantia__selo{flex:0 0 96px;height:96px;margin:0;display:flex;flex-direction:column;justify-content:center;border-radius:50%;background:var(--red);color:#fff;text-align:center;font-family:var(--font-title);font-size:.8rem;line-height:1.1;box-shadow:0 0 0 4px #fff,0 0 0 6px var(--red)}
@@ -726,6 +732,10 @@ mark, .hl {
 @keyframes ctaPulse{0%,100%{transform:scale(1);box-shadow:0 6px 18px rgba(204,0,0,.4),0 0 0 0 rgba(230,0,0,.55)}50%{transform:scale(1.045);box-shadow:0 8px 26px rgba(230,0,0,.6),0 0 0 12px rgba(230,0,0,0)}}
 @keyframes ctaShine{0%{left:-75%}60%,100%{left:130%}}
 @media (prefers-reduced-motion:reduce){.btn,.sticky-cta,.btn::after,.sticky-cta::after{animation:none}}
+/* Fundo vermelho = texto branco em negrito */
+.eyebrow,.eyebrow *,.brand__mark,.hero__kicker,.hero h1 mark,.btn,.btn *,.sticky-cta,.sticky-cta *,.big-number--max,.big-number--max *,
+.saturday,.saturday *,.drawer__num,.drawer__price,.scenario--top,.scenario--top *,.check-list li::before,.guarantee__seal,.guarantee__seal *,
+.faq summary::after,.mockup-box__title,.garantia__selo,.garantia__selo *{color:#fff !important;font-weight:800 !important}
 </style>
 
   <!-- =====================================================================
