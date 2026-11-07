@@ -1,13 +1,41 @@
 <!DOCTYPE html><html lang="pt-PT"><head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preload" as="image" href="image/mockup-principal.webp" imagesrcset="image/mockup-principal-500.webp 500w, image/mockup-principal-700.webp 700w, image/mockup-principal.webp 1000w" imagesizes="(max-width: 640px) calc(100vw - 40px), 600px" fetchpriority="high">
+  <link rel="preload" as="font" href="fonts/montserrat-latin.woff2" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://connect.facebook.net">
   <title>+300 Projetos com Restos de Madeira — Acervo Digital para Telemóvel</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+    /* Montserrat self-hosted (latin) + fallback com métricas ajustadas para evitar CLS */
+    @font-face {
+      font-family: 'Montserrat';
+      font-style: normal;
+      font-weight: 400 900;
+      font-display: swap;
+      src: url('fonts/montserrat-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Montserrat Fallback';
+      font-weight: 400 500;
+      src: local('Arial'), local('ArialMT'), local('Helvetica'), local('Roboto'), local('Liberation Sans');
+      size-adjust: 109.65%; ascent-override: 88.28%; descent-override: 22.89%; line-gap-override: 0%;
+    }
+    @font-face {
+      font-family: 'Montserrat Fallback';
+      font-weight: 600 900;
+      src: local('Arial Bold'), local('Arial-BoldMT'), local('Helvetica Bold'), local('Roboto Bold'), local('Liberation Sans Bold');
+      size-adjust: 110.25%; ascent-override: 87.80%; descent-override: 22.77%; line-gap-override: 0%;
+    }
 
     html {
       scroll-behavior: smooth;
       overflow-x: hidden;
+    }
+
+    img {
+      height: auto;
     }
 
     * {
@@ -32,7 +60,7 @@
     }
 
     body {
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
       background-color: var(--fundo);
       color: var(--texto);
       overflow-x: hidden;
@@ -1340,7 +1368,7 @@
       align-items: center;
       gap: 12px;
       text-align: left;
-      font-family: 'Montserrat', sans-serif;
+      font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
       font-size: 0.9rem;
       font-weight: 700;
       color: var(--marrom-titulo);
@@ -1557,7 +1585,7 @@
       </h1>
 
       <div class="image-wrapper">
-        <img src="image/mockup-principal.webp" alt="+300 Projetos com Restos de Madeira" class="mockup-img">
+        <img src="image/mockup-principal.webp" srcset="image/mockup-principal-500.webp 500w, image/mockup-principal-700.webp 700w, image/mockup-principal.webp 1000w" sizes="(max-width: 640px) calc(100vw - 40px), 600px" width="1000" height="1000" alt="+300 Projetos com Restos de Madeira" class="mockup-img" fetchpriority="high">
       </div>
 
       <div class="hero-badges">
@@ -1625,32 +1653,32 @@
     <!-- Carrossel 1: esquerda para direita -->
     <div class="carousel-container" id="carousel">
       <div class="carousel-track" id="track">
-        <div class="carousel-item"><img src="image/img1.webp" alt="Projeto 1"></div>
-        <div class="carousel-item"><img src="image/img2.webp" alt="Projeto 2"></div>
-        <div class="carousel-item"><img src="image/img4.webp" alt="Projeto 4"></div>
-        <div class="carousel-item"><img src="image/img5.webp" alt="Projeto 5"></div>
+        <div class="carousel-item"><img src="image/img1.webp" alt="Projeto 1" width="560" height="840" loading="lazy" decoding="async"></div>
+        <div class="carousel-item"><img src="image/img2.webp" alt="Projeto 2" width="560" height="791" loading="lazy" decoding="async"></div>
+        <div class="carousel-item"><img src="image/img4.webp" alt="Projeto 4" width="560" height="840" loading="lazy" decoding="async"></div>
+        <div class="carousel-item"><img src="image/img5.webp" alt="Projeto 5" width="560" height="840" loading="lazy" decoding="async"></div>
         <!-- Clones para loop infinito -->
-        <div class="carousel-item"><img src="image/img1.webp" alt="Projeto 1"></div>
-        <div class="carousel-item"><img src="image/img2.webp" alt="Projeto 2"></div>
-        <div class="carousel-item"><img src="image/img4.webp" alt="Projeto 4"></div>
-        <div class="carousel-item"><img src="image/img5.webp" alt="Projeto 5"></div>
+        <div class="carousel-item"><img src="image/img1.webp" alt="Projeto 1" width="560" height="840" loading="lazy" decoding="async"></div>
+        <div class="carousel-item"><img src="image/img2.webp" alt="Projeto 2" width="560" height="791" loading="lazy" decoding="async"></div>
+        <div class="carousel-item"><img src="image/img4.webp" alt="Projeto 4" width="560" height="840" loading="lazy" decoding="async"></div>
+        <div class="carousel-item"><img src="image/img5.webp" alt="Projeto 5" width="560" height="840" loading="lazy" decoding="async"></div>
       </div>
     </div>
 
     <!-- Carrossel 2: direita para esquerda -->
     <div class="carousel-container carousel-reverse" id="carousel2" style="margin-top: -15px;">
       <div class="carousel-track track-reverse" id="track2">
-        <div class="carousel-item"><img src="image/img7.webp" alt="Projeto 7"></div>
-        <div class="carousel-item"><img src="image/img8.webp" alt="Projeto 8"></div>
-        <div class="carousel-item"><img src="image/img9.webp" alt="Projeto 9"></div>
-        <div class="carousel-item"><img src="image/img10.webp" alt="Projeto 10"></div>
-        <div class="carousel-item"><img src="image/img11.webp" alt="Projeto 11"></div>
+        <div class="carousel-item"><img src="image/img7.webp" alt="Projeto 7" width="560" height="840" loading="lazy" decoding="async"></div>
+        <div class="carousel-item"><img src="image/img8.webp" alt="Projeto 8" width="560" height="840" loading="lazy" decoding="async"></div>
+        <div class="carousel-item"><img src="image/img9.webp" alt="Projeto 9" width="560" height="840" loading="lazy" decoding="async"></div>
+        <div class="carousel-item"><img src="image/img10.webp" alt="Projeto 10" width="560" height="840" loading="lazy" decoding="async"></div>
+        <div class="carousel-item"><img src="image/img11.webp" alt="Projeto 11" width="560" height="840" loading="lazy" decoding="async"></div>
         <!-- Clones para loop infinito -->
-        <div class="carousel-item"><img src="image/img7.webp" alt="Projeto 7"></div>
-        <div class="carousel-item"><img src="image/img8.webp" alt="Projeto 8"></div>
-        <div class="carousel-item"><img src="image/img9.webp" alt="Projeto 9"></div>
-        <div class="carousel-item"><img src="image/img10.webp" alt="Projeto 10"></div>
-        <div class="carousel-item"><img src="image/img11.webp" alt="Projeto 11"></div>
+        <div class="carousel-item"><img src="image/img7.webp" alt="Projeto 7" width="560" height="840" loading="lazy" decoding="async"></div>
+        <div class="carousel-item"><img src="image/img8.webp" alt="Projeto 8" width="560" height="840" loading="lazy" decoding="async"></div>
+        <div class="carousel-item"><img src="image/img9.webp" alt="Projeto 9" width="560" height="840" loading="lazy" decoding="async"></div>
+        <div class="carousel-item"><img src="image/img10.webp" alt="Projeto 10" width="560" height="840" loading="lazy" decoding="async"></div>
+        <div class="carousel-item"><img src="image/img11.webp" alt="Projeto 11" width="560" height="840" loading="lazy" decoding="async"></div>
       </div>
     </div>
 
@@ -1735,50 +1763,50 @@
       <div class="artesanatos-grid">
 
         <div class="artesanato-item">
-          <img src="image/chaveiro1.webp" alt="Porta-chaves de madeira">
+          <img src="image/chaveiro1.webp" alt="Porta-chaves de madeira" width="640" height="959" loading="lazy" decoding="async">
           <span class="artesanato-label">Porta-chaves</span>
         </div>
         <div class="artesanato-item">
-          <img src="image/banco1.webp" alt="Banco de madeira">
+          <img src="image/banco1.webp" alt="Banco de madeira" width="640" height="800" loading="lazy" decoding="async">
           <span class="artesanato-label">Banco Rústico</span>
         </div>
         <div class="artesanato-item">
-          <img src="image/prateleira1.webp" alt="Prateleira de madeira">
+          <img src="image/prateleira1.webp" alt="Prateleira de madeira" width="640" height="800" loading="lazy" decoding="async">
           <span class="artesanato-label">Prateleira</span>
         </div>
 
         <div class="artesanato-item">
-          <img src="image/suportecelular1.webp" alt="Suporte para telemóvel">
+          <img src="image/suportecelular1.webp" alt="Suporte para telemóvel" width="640" height="960" loading="lazy" decoding="async">
           <span class="artesanato-label">Suporte p/ Telemóvel</span>
         </div>
         <div class="artesanato-item">
-          <img src="image/suporteplanta2.webp" alt="Suporte para plantas">
+          <img src="image/suporteplanta2.webp" alt="Suporte para plantas" width="640" height="640" loading="lazy" decoding="async">
           <span class="artesanato-label">Suporte p/ Plantas</span>
         </div>
 
         <div class="artesanato-item">
-          <img src="image/chaveiro2.webp" alt="Porta-chaves de madeira">
+          <img src="image/chaveiro2.webp" alt="Porta-chaves de madeira" width="640" height="800" loading="lazy" decoding="async">
           <span class="artesanato-label">Porta-chaves</span>
         </div>
         <div class="artesanato-item">
-          <img src="image/banco2.webp" alt="Banco de madeira">
+          <img src="image/banco2.webp" alt="Banco de madeira" width="640" height="640" loading="lazy" decoding="async">
           <span class="artesanato-label">Banco</span>
         </div>
         <div class="artesanato-item">
-          <img src="image/mesadecentro.webp" alt="Mesa de centro de madeira">
+          <img src="image/mesadecentro.webp" alt="Mesa de centro de madeira" width="640" height="800" loading="lazy" decoding="async">
           <span class="artesanato-label">Mesa de Centro</span>
         </div>
 
         <div class="artesanato-item">
-          <img src="image/armario.webp" alt="Armário de madeira">
+          <img src="image/armario.webp" alt="Armário de madeira" width="640" height="800" loading="lazy" decoding="async">
           <span class="artesanato-label">Armário</span>
         </div>
         <div class="artesanato-item">
-          <img src="image/racktv.webp" alt="Móvel de TV de madeira">
+          <img src="image/racktv.webp" alt="Móvel de TV de madeira" width="640" height="800" loading="lazy" decoding="async">
           <span class="artesanato-label">Móvel de TV</span>
         </div>
         <div class="artesanato-item">
-          <img src="image/estante.webp" alt="Estante de madeira">
+          <img src="image/estante.webp" alt="Estante de madeira" width="640" height="800" loading="lazy" decoding="async">
           <span class="artesanato-label">Estante</span>
         </div>
 
@@ -1901,7 +1929,7 @@
       <div class="deliverables-box">
         <div class="deliverables-tag">⚡ ACESSO IMEDIATO</div>
 
-        <img src="image/mockup-principal.webp" alt="+300 Projetos com Restos de Madeira — Conteúdo Completo" class="deliverables-img">
+        <img src="image/mockup-principal.webp" alt="+300 Projetos com Restos de Madeira — Conteúdo Completo" class="deliverables-img" width="1000" height="1000" loading="lazy" decoding="async">
 
         <ul class="deliverables-list">
           <li>
@@ -1940,7 +1968,7 @@
 
         <div class="bonus-card">
           <div class="bonus-img-placeholder">
-            <img src="image/bonus1.webp" alt="Bónus 1" class="bonus-img">
+            <img src="image/bonus1.webp" alt="Bónus 1" class="bonus-img" width="800" height="800" loading="lazy" decoding="async">
           </div>
           <div class="bonus-content">
             <p class="bonus-number">BÓNUS #1</p>
@@ -1953,7 +1981,7 @@
 
         <div class="bonus-card">
           <div class="bonus-img-placeholder">
-            <img src="image/bonus2.webp" alt="Bónus 2" class="bonus-img">
+            <img src="image/bonus2.webp" alt="Bónus 2" class="bonus-img" width="800" height="800" loading="lazy" decoding="async">
           </div>
           <div class="bonus-content">
             <p class="bonus-number">BÓNUS #2</p>
@@ -1966,7 +1994,7 @@
 
         <div class="bonus-card">
           <div class="bonus-img-placeholder">
-            <img src="image/bonus3.webp" alt="Bónus 3" class="bonus-img">
+            <img src="image/bonus3.webp" alt="Bónus 3" class="bonus-img" width="800" height="800" loading="lazy" decoding="async">
           </div>
           <div class="bonus-content">
             <p class="bonus-number">BÓNUS #3</p>
@@ -2000,7 +2028,7 @@
         <div class="plan-card plan-complete">
           <div class="tag-bestseller">⚡ OFERTA COMPLETA</div>
           <h3 class="plan-title" style="margin-top: 12px;">ACERVO +300 PROJETOS + BÓNUS</h3>
-          <img src="image/mockup-principal.webp" alt="+300 Projetos com Restos de Madeira" class="plan-img">
+          <img src="image/mockup-principal.webp" alt="+300 Projetos com Restos de Madeira" class="plan-img" width="1000" height="1000" loading="lazy" decoding="async">
           <div class="tag-2x">⚡ +300 Projetos + Sistema das 3 Gavetas + 3 Bónus</div>
 
           <ul class="plan-features">
