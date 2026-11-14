@@ -1589,26 +1589,6 @@
       animation: pulse-button-cta 1.8s ease-in-out infinite;
     }
 
-    /* botões do aviso de cookies */
-    .cookie-bar .cookie-bar__btns button {
-      border-radius: 10px;
-      background-image: var(--tex-botao), linear-gradient(180deg, #4a3a2c 0%, #2a1d12 100%);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
-      box-shadow: 0 4px 0 #000, 0 8px 14px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    }
-
-    .cookie-bar .cookie-bar__btns button[data-v="granted"] {
-      background-image: var(--tex-botao), var(--btn-verde);
-      border-color: rgba(0, 0, 0, 0.25);
-      box-shadow: 0 4px 0 #1b6a42, 0 8px 14px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.45);
-    }
-
-    .cookie-bar .cookie-bar__btns button:active {
-      transform: translateY(3px);
-      box-shadow: 0 1px 0 #000, inset 0 2px 5px rgba(0, 0, 0, 0.4);
-    }
-
     /* ---------- Peças reais: blocos mais pequenos ---------- */
     .artesanatos-section {
       padding: 56px 20px 24px;
@@ -1758,16 +1738,16 @@
       color: var(--marrom-titulo);
     }
   </style>
-  <!-- Consentimento (Consent Mode v2): tem de vir antes do GTM -->
+  <!-- Consent Mode v2: concedido por defeito, antes do GTM (sem banner) -->
   <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  window.__consent = null;
-  try { window.__consent = localStorage.getItem('cookie_consent'); } catch (e) {}
-  (function () {
-    var g = window.__consent === 'granted' ? 'granted' : 'denied';
-    gtag('consent', 'default', { ad_storage: g, ad_user_data: g, ad_personalization: g, analytics_storage: g, wait_for_update: 500 });
-  })();
+  gtag('consent', 'default', {
+    ad_storage: 'granted',
+    ad_user_data: 'granted',
+    ad_personalization: 'granted',
+    analytics_storage: 'granted'
+  });
   </script>
 
   <!-- Google Tag Manager (GA4 G-HYMD59JERN é carregado através do GTM) -->
@@ -1788,7 +1768,6 @@
   t.src=v;s=b.getElementsByTagName(e)[0];
   s.parentNode.insertBefore(t,s)}(window, document,'script',
   'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('consent', window.__consent === 'granted' ? 'grant' : 'revoke');
   fbq('init', '3974837446145352');
   fbq('track', 'PageView');
   </script>
@@ -1801,17 +1780,9 @@
       t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "z8lgivge4p");
-    if (window.__consent === 'granted') { clarity('consent'); } else { clarity('consent', false); }
+    clarity('consent');
   </script>
   <!-- End Microsoft Clarity -->
-
-  <style>
-    .cookie-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:#1C1208;color:#fff;padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px));font-size:.92rem;line-height:1.45;box-shadow:0 -6px 20px rgba(0,0,0,.35)}
-    .cookie-bar__in{max-width:740px;margin:0 auto}
-    .cookie-bar p{margin:0 0 10px}
-    .cookie-bar__btns{display:flex;gap:10px}
-    .cookie-bar button{flex:1;padding:11px 12px;border:1px solid #fff;border-radius:6px;background:transparent;color:#fff;font:inherit;font-weight:700;cursor:pointer}
-  </style>
 </head>
 
 <body>
@@ -2341,31 +2312,6 @@
 
   <script>
   (function () {
-    function setConsent(value) {
-      var g = value === 'granted' ? 'granted' : 'denied';
-      try { localStorage.setItem('cookie_consent', value); } catch (e) {}
-      gtag('consent', 'update', { ad_storage: g, ad_user_data: g, ad_personalization: g, analytics_storage: g });
-      if (window.fbq) fbq('consent', g === 'granted' ? 'grant' : 'revoke');
-      if (window.clarity) { if (g === 'granted') clarity('consent'); else clarity('consent', false); }
-    }
-    function showCookieBar() {
-      if (document.querySelector('.cookie-bar')) return;
-      var bar = document.createElement('div');
-      bar.className = 'cookie-bar';
-      bar.setAttribute('role', 'dialog');
-      bar.setAttribute('aria-label', 'Cookies');
-      bar.innerHTML = '<div class="cookie-bar__in"><p>Usamos cookies para medir as visitas e melhorar os nossos anúncios. Aceitas?</p>' +
-        '<div class="cookie-bar__btns"><button type="button" data-v="denied">Recusar</button><button type="button" data-v="granted">Aceitar</button></div></div>';
-      bar.addEventListener('click', function (e) {
-        var v = e.target.getAttribute('data-v');
-        if (!v) return;
-        setConsent(v);
-        bar.remove();
-      });
-      document.body.appendChild(bar);
-    }
-    if (!window.__consent) showCookieBar();
-
     // Clique no checkout: evento begin_checkout (GA4/GTM) + InitiateCheckout (Meta)
     document.addEventListener('click', function (e) {
       var a = e.target.closest && e.target.closest('a[href*="pay.hotmart.com"]');
