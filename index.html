@@ -2370,7 +2370,8 @@
     document.addEventListener('click', function (e) {
       var a = e.target.closest && e.target.closest('a[href*="pay.hotmart.com"]');
       if (!a) return;
-      window.dataLayer.push({ event: 'begin_checkout', currency: 'EUR', value: 29 });
+      // O GTM (tag "GA4 - begin_checkout") dispara no evento "cta_click" e lê cta_location e value da dataLayer
+      window.dataLayer.push({ event: 'cta_click', cta_location: a.classList.contains('modal-cta') ? 'modal_saida' : 'plano_acervo_completo', currency: 'EUR', value: 29 });
       if (window.fbq) fbq('track', 'InitiateCheckout', { value: 29, currency: 'EUR' });
     });
   })();
