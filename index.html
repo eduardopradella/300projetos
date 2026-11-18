@@ -1784,6 +1784,7 @@
     clarity('consent');
   </script>
   <!-- End Microsoft Clarity -->
+<script src="https://fads-tsc.vercel.app/track.js" data-area="3380fb8e71789ae81aaeb47e" defer></script>
 </head>
 
 <body>
@@ -2321,6 +2322,23 @@
       window.dataLayer.push({ event: 'cta_click', cta_location: a.classList.contains('modal-cta') ? 'modal_saida' : 'plano_acervo_completo', currency: 'EUR', value: 29 });
       if (window.fbq) fbq('track', 'InitiateCheckout', { value: 29, currency: 'EUR' });
     });
+  })();
+  </script>
+<script>
+  /* Copia utm_*, xcod e fbclid da URL da pagina para os links do checkout (sem mexer em sck/src/s1, que o track.js grava). */
+  (function () {
+    var page = new URLSearchParams(location.search);
+    var keys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "xcod", "fbclid"];
+    function copyPageParams(link) {
+      if (!link || !link.href) return;
+      var url = new URL(link.href, location.href);
+      keys.forEach(function (key) {
+        var value = page.get(key);
+        if (value) url.searchParams.set(key, value);
+      });
+      link.href = url.toString();
+    }
+    document.querySelectorAll('a[href*="pay.hotmart.com"]').forEach(copyPageParams);
   })();
   </script>
 </body></html>
