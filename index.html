@@ -1430,6 +1430,16 @@
       margin: 0 auto;
     }
 
+    /* Primeira tela: botão e preço sem rolar (telemóvel); no ecrã grande não se repete */
+    .hero-cta-top { display: none; }
+    .hero-price { font-size: 0.85rem; color: #E8D5C0; margin: 10px 0 0; line-height: 1.4; }
+    .hero-price strong { color: #fff; font-size: 1.05rem; }
+    @media (max-width: 640px) {
+      .hero-cta-top { display: block; margin: 0 0 18px; text-align: center; }
+      .hero-section .headline { font-size: 1.45rem; line-height: 1.18; margin-bottom: 16px; }
+      .hero-section .image-wrapper { margin: 14px auto; }
+    }
+
     /* RESPONSIVE */
     @media (max-width: 640px) {
       .headline {
@@ -1791,11 +1801,6 @@
   <!-- Google Tag Manager (noscript) -->
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52PRVXC9" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-  <!-- ===== 1. TOP BAR — ESCASSEZ ===== -->
-  <div class="top-bar">
-    <span>⚡ DISPONÍVEL APENAS HOJE: <span id="data-atual">05/11/2026</span></span>
-  </div>
-
   <!-- ===== 2. HERO SECTION ===== -->
   <header class="hero-section">
     <div class="container">
@@ -1805,6 +1810,11 @@
         <span class="destaque">3.000€ a 5.000€/mês</span><br>
         Usando apenas ferramentas manuais, Sem Gastar em Madeira Nova!
       </h1>
+
+      <div class="hero-cta-top">
+        <a href="https://pay.hotmart.com/D108340285P?checkoutMode=10" class="cta-button" target="_blank" rel="noopener" data-cta-location="hero_topo">QUERO O MEU ACERVO COMPLETO</a>
+        <p class="hero-price"><strong>29 €</strong> · pagamento único · MB WAY, Multibanco ou cartão · 7 dias de garantia</p>
+      </div>
 
       <div class="image-wrapper">
         <img src="image/mockup-principal.webp" srcset="image/mockup-principal-500.webp 500w, image/mockup-principal-700.webp 700w, image/mockup-principal.webp 1000w" sizes="(max-width: 640px) calc(100vw - 40px), 600px" width="1000" height="1000" alt="+300 Projetos com Restos de Madeira" class="mockup-img" fetchpriority="high">
@@ -2222,13 +2232,6 @@
   </footer>
 
   <!-- ===== SCRIPTS ===== -->
-  <script>
-    // Data dinâmica na top bar
-    const hoje = new Date();
-    const opc = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    document.getElementById('data-atual').textContent = hoje.toLocaleDateString('pt-PT', opc);
-  </script>
-
   <script>
     document.querySelectorAll('.faq-question').forEach(btn => {
       btn.addEventListener('click', () => {
