@@ -1440,6 +1440,23 @@
       .hero-section .image-wrapper { margin: 14px auto; }
     }
 
+    /* Dor, transformação e desejo */
+    .dor-section { padding: 44px 20px; background: #fff7ef; }
+    .dor-section .container { max-width: 760px; margin: 0 auto; }
+    .dor-list { list-style: none; padding: 0; margin: 18px 0 14px; }
+    .dor-list li { position: relative; padding: 13px 14px 13px 46px; margin-bottom: 10px; background: #fff; border-radius: 10px; box-shadow: 0 1px 6px rgba(0,0,0,.08); font-weight: 600; line-height: 1.45; color: var(--texto); }
+    .dor-list li::before { content: "✗"; position: absolute; left: 16px; top: 12px; color: #d33; font-weight: 900; }
+    .dor-nota { text-align: center; font-size: 1.05rem; margin: 6px 0 24px; color: var(--texto); }
+    .dor-nota-fim { font-size: .95rem; margin: 18px 0 0; }
+    .virada { background: #1a1410; color: #fff; border-radius: 14px; padding: 24px 22px; margin: 0 0 28px; text-align: center; }
+    .virada h3 { color: var(--laranja); font-size: 1.15rem; margin: 0 0 10px; letter-spacing: .5px; }
+    .virada p { margin: 0; line-height: 1.6; font-size: 1rem; }
+    .passos3-titulo { text-align: center; font-size: 1rem; margin: 0 0 12px; color: var(--texto); }
+    .passos3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .passo3 { background: #fff; border-radius: 10px; padding: 16px 12px; text-align: center; box-shadow: 0 1px 6px rgba(0,0,0,.08); color: var(--texto); font-weight: 600; line-height: 1.4; }
+    .passo3 b { display: block; font-size: 1.7rem; color: var(--laranja); margin-bottom: 4px; }
+    @media (max-width: 640px) { .passos3 { grid-template-columns: 1fr; } }
+
     /* RESPONSIVE */
     @media (max-width: 640px) {
       .headline {
@@ -1806,9 +1823,7 @@
     <div class="container">
 
       <h1 class="headline">
-        Transforma <span class="destaque">Sobras de MDF e Paletes</span> num Extra de
-        <span class="destaque">3.000€ a 5.000€/mês</span><br>
-        Usando apenas ferramentas manuais, Sem Gastar em Madeira Nova!
+        Sobras de madeira paradas? <span class="destaque">Dá-lhes um projeto</span>, com as medidas todas feitas.
       </h1>
 
       <div class="hero-cta-top">
@@ -1821,8 +1836,8 @@
       </div>
 
       <p class="subheadline">
-        <strong>Sem máquinas de 3.000€, sem desperdício e com 95% de lucro limpo direto para o teu MBWay</strong>
-        mesmo que não tenhas tempo ou experiência.
+        <strong>Chega de cortar à sorte e ver a peça ficar torta.</strong>
+        Escolhes a ficha pelo tamanho da sobra, segues a lista de corte em milímetros e o passo a passo ilustrado, e fazes a tua primeira peça com o que já tinhas.
       </p>
         <a href="https://pay.hotmart.com/D108340285P?checkoutMode=10" class="cta-button" target="_blank" rel="noopener" data-cta-location="hero_acervo">QUERO O MEU ACERVO COMPLETO</a>
 
@@ -1847,47 +1862,30 @@
       </div>
     </div>
   </header>
-  <!-- ===== 2B. RESULTADOS REAIS ===== -->
-  <section class="resultados-section">
-    <div class="carousel-header">
-      <h2 class="section-title">RESULTADOS <span class="underline-highlight">REAIS</span></h2>
-      <p class="resultados-sub">Pessoas como tu a transformar restos de madeira em peças e em dinheiro.</p>
-    </div>
-    <div class="resultados-slider" id="resultados">
-      <div class="resultados-track">
-          <figure class="resultado-item"><img src="image/prova1.webp" alt="Resultado real: mesa de centro feita com paletes" width="1086" height="1448" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item"><img src="image/prova8.webp" alt="Resultado real: organizador de café vendido por 35€" width="1122" height="1402" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item"><img src="image/prova4.webp" alt="Resultado real: casal com cadeira de paletes" width="1122" height="1402" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item"><img src="image/dep1.webp" alt="Depoimento real: prateleira rústica com porta-chaves" width="941" height="1672" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item"><img src="image/prova7.webp" alt="Resultado real: estante de plantas feita com restos de madeira" width="1086" height="1448" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item"><img src="image/Floreira-Suspensa-com-Plano-no-Celular.webp" alt="Resultado real: floreira de paletes vendida online" width="1122" height="1402" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item"><img src="image/prova3.webp" alt="Resultado real: cadeira de paletes feita à mão" width="1086" height="1448" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item"><img src="image/dep2.webp" alt="Depoimento real: estante vendida numa tarde" width="941" height="1672" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item"><img src="image/prova9.webp" alt="Resultado real: prateleira de parede com plantas" width="1122" height="1402" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item"><img src="image/prova2.webp" alt="Resultado real: a lixar uma caixa de madeira" width="1086" height="1448" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item"><img src="image/Organizador-de-Café-no-Workshop-DIY.webp" alt="Resultado real: organizador de café com pagamento no telemóvel" width="1122" height="1402" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item"><img src="image/prova12.webp" alt="Resultado real: família com peças feitas com restos de madeira" width="1122" height="1402" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item"><img src="image/dep3.webp" alt="Depoimento real: cadeira vendida numa tarde" width="941" height="1672" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item"><img src="image/prova6.webp" alt="Resultado real: moldura feita com restos de madeira" width="896" height="1200" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item"><img src="image/prova10.webp" alt="Resultado real: móvel rústico de oficina" width="784" height="1168" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item"><img src="image/prova11.webp" alt="Resultado real: floreira de paletes na parede" width="784" height="1168" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item" aria-hidden="true"><img src="image/prova1.webp" alt="" width="1086" height="1448" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item" aria-hidden="true"><img src="image/prova8.webp" alt="" width="1122" height="1402" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item" aria-hidden="true"><img src="image/prova4.webp" alt="" width="1122" height="1402" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item" aria-hidden="true"><img src="image/dep1.webp" alt="" width="941" height="1672" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item" aria-hidden="true"><img src="image/prova7.webp" alt="" width="1086" height="1448" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item" aria-hidden="true"><img src="image/Floreira-Suspensa-com-Plano-no-Celular.webp" alt="" width="1122" height="1402" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item" aria-hidden="true"><img src="image/prova3.webp" alt="" width="1086" height="1448" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item" aria-hidden="true"><img src="image/dep2.webp" alt="" width="941" height="1672" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item" aria-hidden="true"><img src="image/prova9.webp" alt="" width="1122" height="1402" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item" aria-hidden="true"><img src="image/prova2.webp" alt="" width="1086" height="1448" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item" aria-hidden="true"><img src="image/Organizador-de-Café-no-Workshop-DIY.webp" alt="" width="1122" height="1402" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item" aria-hidden="true"><img src="image/prova12.webp" alt="" width="1122" height="1402" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item" aria-hidden="true"><img src="image/dep3.webp" alt="" width="941" height="1672" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item" aria-hidden="true"><img src="image/prova6.webp" alt="" width="896" height="1200" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item" aria-hidden="true"><img src="image/prova10.webp" alt="" width="784" height="1168" loading="lazy" decoding="async"></figure>
-          <figure class="resultado-item" aria-hidden="true"><img src="image/prova11.webp" alt="" width="784" height="1168" loading="lazy" decoding="async"></figure>
+  <!-- ===== 2B. DOR → TRANSFORMAÇÃO → DESEJO ===== -->
+  <section class="dor-section">
+    <div class="container">
+      <h2 class="section-title">SE ISTO TE ACONTECE…</h2>
+      <ul class="dor-list">
+        <li>Tens madeira parada na garagem e não sabes por onde começar.</li>
+        <li>Os vídeos mostram a peça pronta, mas quase nunca mostram as medidas.</li>
+        <li>Cortas à sorte, o ângulo falha e a peça fica torta.</li>
+        <li>Acabas por comprar madeira nova, sem precisares.</li>
+      </ul>
+      <p class="dor-nota"><strong>Não é falta de jeito. É falta de medidas.</strong></p>
+
+      <div class="virada">
+        <h3>E SE FOSSE DIFERENTE?</h3>
+        <p>Imagina a tua primeira peça pronta, feita por ti, com o que já tinhas: o porta-chaves na entrada, a prateleira na sala, uma prenda feita à mão. Sem comprar madeira nova e sem adivinhar medidas.</p>
       </div>
+
+      <h3 class="passos3-titulo">COMO FUNCIONA, EM 3 PASSOS</h3>
+      <div class="passos3">
+        <div class="passo3"><b>1</b><span>Medes a tua sobra.</span></div>
+        <div class="passo3"><b>2</b><span>Abres a gaveta certa: curtas, médias ou longas.</span></div>
+        <div class="passo3"><b>3</b><span>Segues a lista de corte e o passo a passo ilustrado.</span></div>
+      </div>
+      <p class="dor-nota dor-nota-fim">Não é um curso e não promete dinheiro: são fichas de montagem com medidas, em PDF, para abrires no telemóvel.</p>
     </div>
   </section>
 
@@ -1970,36 +1968,11 @@
     </div>
   </section>
 
-  <!-- ===== 4. DEPOIMENTOS ===== -->
-  <section class="testimonials-section">
-    <div class="carousel-header" style="margin-bottom: 40px;">
-      <h2 class="section-title">QUEM JÁ TRANSFORMOU RESTOS DE MADEIRA EM DINHEIRO ESTÁ A FALAR</h2>
-    </div>
-    <div class="depoimentos-stack" style="max-width: 640px; margin: 0 auto;">
-      <div class="feature-card" style="width: 100%; flex-direction: column; align-items: flex-start; gap: 10px;">
-        <p style="font-size: 0.92rem; line-height: 1.7; color: var(--texto);">⭐⭐⭐⭐⭐<br>“Faço móveis há 12 anos... As sobras do roupeiro que iam para o lixo viraram 110€ de lucro limpo no fim de semana.”</p>
-        <p style="font-size: 0.8rem; font-weight: 800; color: var(--marrom-titulo);">Rui Mendes, 47 anos (Leiria) · Marceneiro</p>
-      </div>
-      <div class="feature-card" style="width: 100%; flex-direction: column; align-items: flex-start; gap: 10px;">
-        <p style="font-size: 0.92rem; line-height: 1.7; color: var(--texto);">⭐⭐⭐⭐⭐<br>“A minha esposa dizia que a garagem era um depósito de lixo... Agora vê as prateleiras na sala e diz com orgulho: ‘foi o meu marido que fez’.”</p>
-        <p style="font-size: 0.8rem; font-weight: 800; color: var(--marrom-titulo);">Gonçalo Vasconcelos, 39 anos (Sintra) · Bricolage</p>
-      </div>
-      <div class="feature-card" style="width: 100%; flex-direction: column; align-items: flex-start; gap: 10px;">
-        <p style="font-size: 0.92rem; line-height: 1.7; color: var(--texto);">⭐⭐⭐⭐⭐<br>“As contas sufocavam-me... No 3.º dia vendi a primeira floreira por 20€ ao florista, via MBWay. Fiz 520€ no primeiro mês!”</p>
-        <p style="font-size: 0.8rem; font-weight: 800; color: var(--marrom-titulo);">Mário Rocha, 51 anos (Vila Nova de Gaia) · Renda extra</p>
-      </div>
-      <div class="feature-card" style="width: 100%; flex-direction: column; align-items: flex-start; gap: 10px;">
-        <p style="font-size: 0.92rem; line-height: 1.7; color: var(--texto);">⭐⭐⭐⭐⭐<br>“Reformado e farto de ver TV... Faço descansos de panela sentado na bancada, sem carregar peso, e tenho o meu dinheirinho para o café e para os meus netos.”</p>
-        <p style="font-size: 0.8rem; font-weight: 800; color: var(--marrom-titulo);">António Fonseca, 66 anos (Coimbra) · Reformado</p>
-      </div>
-    </div>
-  </section>
-
   <!-- ===== 5. GALERIA — PEÇAS PRONTAS ===== -->
   <section class="artesanatos-section">
     <div class="container">
-      <h2 class="section-title">PEÇAS REAIS FEITAS COM RESTOS DE MADEIRA</h2>
-      <p class="artesanatos-subtitle">Estas são peças feitas a partir dos projetos do Acervo. Do corte ao acabamento final.</p>
+      <h2 class="section-title">EXEMPLOS DE PEÇAS FEITAS COM RESTOS DE MADEIRA</h2>
+      <p class="artesanatos-subtitle">Exemplos do tipo de peça que podes fazer com as fichas do Acervo, do corte ao acabamento.</p>
 
       <div class="artesanatos-grid">
         <div class="artesanato-item">
@@ -2268,7 +2241,7 @@
   <!-- MODAL EXIT INTENT -->
   <div id="modal-exit" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:10000; align-items:center; justify-content:center; padding:16px;">
     <div style="background:#fff; border-radius:18px; max-width:460px; width:100%; padding:34px 28px 28px; text-align:center; position:relative; box-shadow:0 12px 32px rgba(0,0,0,0.15); max-height:90vh; overflow-y:auto;">
-      <div style="background:#e51010; color:#fff; font-size:0.78rem; font-weight:800; letter-spacing:1.2px; padding:5px 18px; border-radius:20px; display:inline-block; margin-bottom:18px; text-transform:uppercase;">🚨 Espera! Oferta por tempo limitado</div>
+      <div style="background:#e51010; color:#fff; font-size:0.78rem; font-weight:800; letter-spacing:1.2px; padding:5px 18px; border-radius:20px; display:inline-block; margin-bottom:18px; text-transform:uppercase;">Espera um minuto</div>
       <h2 style="font-size:1.45rem; font-weight:900; color:#1a1a1a; margin:0 0 10px; line-height:1.25;">Antes de saíres, vê isto...</h2>
       <p style="color:#444; font-size:0.97rem; line-height:1.5; margin-bottom:20px;">Estás a deixar para trás <strong>+300 projetos com medidas exatas</strong> e <strong>3 bónus exclusivos</strong>, com <strong>7 dias de garantia</strong> e risco zero.</p>
 
