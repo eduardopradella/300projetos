@@ -2250,50 +2250,86 @@
     });
   </script>
 
-  <!-- MODAL EXIT INTENT -->
-  <div id="modal-exit" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:10000; align-items:center; justify-content:center; padding:16px;">
-    <div style="background:#fff; border-radius:18px; max-width:460px; width:100%; padding:34px 28px 28px; text-align:center; position:relative; box-shadow:0 12px 32px rgba(0,0,0,0.15); max-height:90vh; overflow-y:auto;">
-      <div style="background:#e51010; color:#fff; font-size:0.78rem; font-weight:800; letter-spacing:1.2px; padding:5px 18px; border-radius:20px; display:inline-block; margin-bottom:18px; text-transform:uppercase;">Espera um minuto</div>
-      <h2 style="font-size:1.45rem; font-weight:900; color:#1a1a1a; margin:0 0 10px; line-height:1.25;">Antes de saíres, vê isto...</h2>
-      <p style="color:#444; font-size:0.97rem; line-height:1.5; margin-bottom:20px;">Estás a deixar para trás <strong>+300 projetos com medidas exatas</strong> e <strong>3 bónus exclusivos</strong>, com <strong>7 dias de garantia</strong> e risco zero.</p>
-
-      <div style="padding:10px 0 18px; margin-bottom:4px;">
-        <div style="color:#0b8c2d; font-size:2.8rem; font-weight:900; line-height:1.1; letter-spacing:-1px;">29€</div>
-        <div style="color:#1a1a1a; font-size:0.83rem; font-weight:700; margin-top:6px;">MBWay, Multibanco ou Cartão</div>
-        <div style="color:#555; font-size:0.8rem; margin-top:3px;">Pagamento único &nbsp;·&nbsp; Acesso vitalício</div>
+  <!-- POP-UP DE CAPTAÇÃO DE E-MAIL (ficha A1 grátis); só aparece depois de 90 s na página -->
+  <style>
+    .pop-in { width: 100%; box-sizing: border-box; padding: 13px 12px; margin: 0 0 10px; font: inherit; font-size: .95rem; border: 2px solid #ddd; border-radius: 8px; }
+    .pop-in:focus { outline: 3px solid var(--laranja); outline-offset: 1px; border-color: var(--laranja); }
+    .pop-btn { display: block; width: 100%; box-sizing: border-box; border: 0; cursor: pointer; background: #d00; color: #fff; font-family: inherit; font-weight: 900; font-size: 1.02rem; padding: 15px 12px; border-radius: 8px; text-align: center; text-decoration: none; text-transform: uppercase; letter-spacing: .3px; }
+    .pop-btn:disabled { opacity: .6; cursor: default; }
+    .pop-chk { display: flex; gap: 9px; align-items: flex-start; text-align: left; font-size: .8rem; line-height: 1.4; color: #555; margin: 2px 0 12px; }
+    .pop-chk input { margin-top: 2px; flex: none; width: 17px; height: 17px; }
+    .pop-x { background: none; border: 0; color: #777; font: inherit; font-size: .85rem; text-decoration: underline; cursor: pointer; margin-top: 12px; }
+    .pop-err { color: #b00020; font-size: .82rem; margin: -2px 0 10px; display: none; }
+  </style>
+  <div id="modal-exit" role="dialog" aria-modal="true" aria-labelledby="pop-title" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.65); z-index:10000; align-items:center; justify-content:center; padding:16px;">
+    <div style="background:#fff; border-radius:18px; max-width:440px; width:100%; padding:30px 26px 24px; text-align:center; position:relative; box-shadow:0 12px 32px rgba(0,0,0,0.15); max-height:92vh; overflow-y:auto;">
+      <div id="pop-form">
+        <div style="background:#d00; color:#fff; font-size:0.78rem; font-weight:800; letter-spacing:1.2px; padding:5px 18px; border-radius:20px; display:inline-block; margin-bottom:14px; text-transform:uppercase;">Ficha grátis</div>
+        <h2 id="pop-title" style="font-size:1.4rem; font-weight:900; color:#1a1a1a; margin:0 0 8px; line-height:1.25;">Antes de saíres, leva a ficha A1 grátis</h2>
+        <p style="color:#444; font-size:0.95rem; line-height:1.5; margin:0 0 16px;">Porta-chaves magnético com <strong>lista de corte, medidas em milímetros e passo a passo ilustrado</strong>. Recebes o PDF agora, sem cartão.</p>
+        <form id="popLead" novalidate>
+          <input type="text" name="website" id="popWebsite" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0">
+          <label for="popNome" style="position:absolute;left:-9999px">Primeiro nome</label>
+          <input class="pop-in" type="text" id="popNome" name="nome" placeholder="Primeiro nome" autocomplete="given-name" required>
+          <label for="popEmail" style="position:absolute;left:-9999px">E-mail</label>
+          <input class="pop-in" type="email" id="popEmail" name="email" placeholder="O teu e-mail" autocomplete="email" inputmode="email" required>
+          <label class="pop-chk"><input type="checkbox" id="popOk" required><span>Aceito receber a ficha e algumas mensagens sobre o PDF por e-mail. Posso cancelar quando quiser.</span></label>
+          <div class="pop-err" id="popErr" role="alert"></div>
+          <button type="submit" class="pop-btn" id="popBtn">Receber a ficha grátis</button>
+        </form>
+        <button type="button" class="pop-x" id="popClose">Não, obrigado</button>
       </div>
-
-      <a href="https://pay.hotmart.com/D108340285P?checkoutMode=10" target="_blank" class="modal-cta">
-        ✅ QUERO O ACERVO POR 29€
-      </a>
-      <div style="color:#666; font-size:0.8rem; margin-bottom:14px;">Inclui +300 projetos, Sistema das 3 Gavetas e os <strong>3 bónus exclusivos</strong></div>
+      <div id="pop-ok" style="display:none;">
+        <div style="font-size:2.4rem; line-height:1;">✅</div>
+        <h2 style="font-size:1.35rem; font-weight:900; color:#1a1a1a; margin:10px 0 8px;">A tua ficha A1 está pronta</h2>
+        <p style="color:#444; font-size:0.95rem; line-height:1.5; margin:0 0 16px;">Descarrega-a agora. Também a enviámos para o teu e-mail.</p>
+        <a class="pop-btn" href="https://ficha-gratis.vercel.app/ficha-a1-gratis.pdf" target="_blank" rel="noopener" download id="popDl">Descarregar a ficha A1 (PDF)</a>
+        <button type="button" class="pop-x" id="popClose2">Continuar a ver a página</button>
+      </div>
     </div>
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const modalExit = document.getElementById('modal-exit');
-      let exitShown = false;
-
-      function mostrarExit() {
-        if (exitShown) return;
-        exitShown = true;
-        modalExit.style.display = 'flex';
+    document.addEventListener('DOMContentLoaded', function () {
+      var MIN_MS = 90000;   // atraso mínimo antes de o pop-up poder aparecer
+      var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyKKN44NeDU5WmvlUDQ_FYya6aT8JOChsrijlN80ySMNWpJECV1Cbl0UJJK6yjhQLIqvQ/exec';
+      var modal = document.getElementById('modal-exit'), form = document.getElementById('popLead'), err = document.getElementById('popErr');
+      var shown = false, t0 = Date.now(), done = false;
+      try { done = localStorage.getItem('lead_popup') === '1'; } catch (e) {}
+      function ev(n, x) { try { if (typeof gtag === 'function') gtag('event', n, x || {}); } catch (e) {} }
+      function mostrar() {
+        if (shown || done || (Date.now() - t0) < MIN_MS) return false;
+        shown = true; modal.style.display = 'flex'; ev('popup_email_shown'); return true;
       }
-
-      // Desktop: rato sai pelo topo da janela
-      document.addEventListener('mouseleave', (e) => {
-        if (e.clientY < 10) mostrarExit();
+      function fechar() { modal.style.display = 'none'; }
+      document.addEventListener('mouseleave', function (e) { if (e.clientY < 10) mostrar(); });
+      // Telemóvel: botão «voltar». A entrada atual fica marcada e é criada outra por cima.
+      try { history.replaceState({ exitIntent: true }, '', location.href); history.pushState({ trap: true }, '', location.href); } catch (e) {}
+      window.addEventListener('popstate', function (e) {
+        if (e.state && e.state.exitIntent) { if (!mostrar()) history.back(); }
       });
-
-      // Telemóvel: botão voltar — usa estado marcado para não confundir com âncoras
-      history.pushState({ exitIntent: true }, '', window.location.href);
-      window.addEventListener('popstate', (e) => {
-        if (e.state && e.state.exitIntent) mostrarExit();
-      });
-
-      modalExit.addEventListener('click', (e) => {
-        if (e.target === modalExit) modalExit.style.display = 'none';
+      modal.addEventListener('click', function (e) { if (e.target === modal) fechar(); });
+      document.getElementById('popClose').addEventListener('click', fechar);
+      document.getElementById('popClose2').addEventListener('click', fechar);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.style.display === 'flex') fechar(); });
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var nome = form.nome.value.trim(), email = form.email.value.trim(), ok = document.getElementById('popOk').checked, msg = '';
+        if (!nome) msg = 'Escreve o teu primeiro nome.';
+        else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) msg = 'Confirma o e-mail.';
+        else if (!ok) msg = 'Marca a caixa para receberes a ficha.';
+        if (msg) { err.textContent = msg; err.style.display = 'block'; return; }
+        err.style.display = 'none';
+        var btn = document.getElementById('popBtn'); btn.disabled = true; btn.textContent = 'A enviar...';
+        var q = new URLSearchParams(location.search), utm = {};
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) { if (q.get(k)) utm[k] = q.get(k); });
+        var payload = { nome: nome, email: email, origem: 'popup', consentimento: true, hp: document.getElementById('popWebsite').value, utm: utm, page: location.pathname + '#300projetos', ts: new Date().toISOString() };
+        try { fetch(ENDPOINT, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload), keepalive: true }); } catch (x) {}
+        ev('generate_lead', { lead_source: 'popup_300projetos', content_name: 'ficha_a1' });
+        try { if (window.fbq) fbq('track', 'Lead', { content_name: 'Ficha A1 gratis', content_category: 'popup_300projetos' }); } catch (x) {}
+        try { localStorage.setItem('lead_popup', '1'); } catch (x) {}
+        done = true;
+        document.getElementById('pop-form').style.display = 'none'; document.getElementById('pop-ok').style.display = 'block';
       });
     });
   </script>
