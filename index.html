@@ -1457,6 +1457,17 @@
     .passo3 b { display: block; font-size: 1.7rem; color: var(--laranja); margin-bottom: 4px; }
     @media (max-width: 640px) { .passos3 { grid-template-columns: 1fr; } }
 
+    /* VSL no topo */
+    .vsl-box { position: relative; height: min(70vh, 640px); aspect-ratio: 9 / 16; max-width: 92vw; margin: 14px auto 14px; border-radius: 14px; overflow: hidden; background: #000; box-shadow: 0 8px 28px rgba(0,0,0,.45); }
+    .vsl-box video { width: 100%; height: 100%; object-fit: cover; display: block; -webkit-user-select: none; user-select: none; }
+    .vsl-play { position: absolute; inset: 0; width: 100%; border: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: rgba(0,0,0,.55); color: #fff; font-family: inherit; }
+    .vsl-play[hidden] { display: none; }
+    .vsl-play-ico { width: 74px; height: 74px; line-height: 74px; border-radius: 50%; background: var(--laranja); font-size: 30px; padding-left: 5px; box-sizing: border-box; box-shadow: 0 0 0 10px rgba(232,131,58,.28); }
+    .vsl-play-txt { font-weight: 900; font-size: 1rem; letter-spacing: .5px; line-height: 1.3; }
+    .vsl-cta { max-height: 0; opacity: 0; visibility: hidden; overflow: hidden; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; text-align: center; }
+    .vsl-cta.is-on { max-height: 400px; opacity: 1; visibility: visible; transform: none; margin: 4px 0 18px; }
+    @media (max-width: 640px) { .hero-section .headline { font-size: 1.3rem; margin-bottom: 8px; } .vsl-box { margin-top: 8px; } }
+
     /* RESPONSIVE */
     @media (max-width: 640px) {
       .headline {
@@ -1812,6 +1823,7 @@
   </script>
   <!-- End Microsoft Clarity -->
 <script src="https://fads-tsc.vercel.app/track.js" data-area="3380fb8e71789ae81aaeb47e" defer></script>
+<noscript><style>.vsl-cta{max-height:none;opacity:1;visibility:visible}.vsl-play{display:none}</style></noscript>
 </head>
 
 <body>
@@ -1826,8 +1838,17 @@
         Sobras de madeira paradas? <span class="destaque">Dá-lhes um projeto</span>, com as medidas todas feitas.
       </h1>
 
-      <div class="hero-cta-top">
-        <a href="https://pay.hotmart.com/D108340285P?checkoutMode=10" class="cta-button" target="_blank" rel="noopener" data-cta-location="hero_topo">QUERO O MEU ACERVO COMPLETO</a>
+      <!-- VSL: vertical, com som, sem controlos; o botão só aparece no pitch -->
+      <div class="vsl-box" id="vslBox">
+        <video id="vsl" playsinline webkit-playsinline preload="auto" poster="vsl/vsl-poster.jpg" disablepictureinpicture disableremoteplayback controlslist="nodownload noplaybackrate noremoteplayback" oncontextmenu="return false"></video>
+        <button type="button" class="vsl-play" id="vslPlay" aria-label="Tocar o vídeo com som">
+          <span class="vsl-play-ico">&#9654;</span>
+          <span class="vsl-play-txt">TOCA PARA VER<br>(COM SOM)</span>
+        </button>
+      </div>
+
+      <div class="vsl-cta" id="vslCta">
+        <a href="https://pay.hotmart.com/D108340285P?checkoutMode=10" class="cta-button" target="_blank" rel="noopener" data-cta-location="hero_acervo">QUERO O MEU ACERVO COMPLETO</a>
         <p class="hero-price"><strong>29 €</strong> · pagamento único · MB WAY, Multibanco ou cartão · 7 dias de garantia</p>
       </div>
 
@@ -1839,8 +1860,6 @@
         <strong>Chega de cortar à sorte e ver a peça ficar torta.</strong>
         Escolhes a ficha pelo tamanho da sobra, segues a lista de corte em milímetros e o passo a passo ilustrado, e fazes a tua primeira peça com o que já tinhas.
       </p>
-        <a href="https://pay.hotmart.com/D108340285P?checkoutMode=10" class="cta-button" target="_blank" rel="noopener" data-cta-location="hero_acervo">QUERO O MEU ACERVO COMPLETO</a>
-
         <div class="trust-badges-hero">
           <div class="trust-item">
             <div class="trust-icon-wrap">
@@ -2314,4 +2333,46 @@
     document.querySelectorAll('a[href*="pay.hotmart.com"]').forEach(copyPageParams);
   })();
   </script>
+<script>
+/* VSL: som ligado, sem controlos, botão de compra só no pitch de vendas */
+(function () {
+  var PITCH_S = 131.5; // segundo em que começa a oferta («Quatro módulos…»); o preço aparece aos ~167 s
+  var v = document.getElementById('vsl'), btn = document.getElementById('vslPlay'), cta = document.getElementById('vslCta');
+  if (!v || !btn || !cta) return;
+  var conn = navigator.connection || {};
+  var slow = conn.saveData || /(^|-)(2g|3g)$/.test(conn.effectiveType || '');
+  v.src = slow ? 'vsl/vsl-480.mp4' : 'vsl/vsl-720.mp4';
+  v.muted = false; v.defaultMuted = false; v.volume = 1;
+  var shown = false, started = false, marks = { 25: 0, 50: 0, 75: 0 };
+  function ev(name, extra) {
+    try { window.dataLayer = window.dataLayer || []; if (typeof gtag === 'function') gtag('event', name, extra || {}); } catch (e) {}
+    try { if (window.fbq) fbq('trackCustom', name, extra || {}); } catch (e) {}
+  }
+  function showCta(why) {
+    if (shown) return; shown = true; cta.classList.add('is-on'); ev('vsl_cta_shown', { reason: why });
+  }
+  function hideBtn() { btn.hidden = true; }
+  function tryPlay() {
+    v.muted = false;
+    var p = v.play();
+    if (p && p.then) p.then(function () { hideBtn(); }).catch(function () { btn.hidden = false; });
+  }
+  btn.addEventListener('click', function () { v.muted = false; v.volume = 1; v.play().then(hideBtn).catch(function () {}); });
+  v.addEventListener('play', function () { if (!started) { started = true; ev('vsl_play'); } hideBtn(); });
+  v.addEventListener('volumechange', function () { if (v.muted) v.muted = false; });
+  v.addEventListener('timeupdate', function () {
+    var t = v.currentTime, d = v.duration || 0;
+    if (t >= PITCH_S) showCta('pitch');
+    if (d) { var pct = t / d * 100; [25, 50, 75].forEach(function (k) { if (!marks[k] && pct >= k) { marks[k] = 1; ev('vsl_' + k); } }); }
+  });
+  v.addEventListener('ended', function () { ev('vsl_100'); showCta('fim'); btn.hidden = true; });
+  v.addEventListener('error', function () { showCta('erro'); document.getElementById('vslBox').style.display = 'none'; });
+  // se o vídeo não carregar a tempo, não perde a venda
+  setTimeout(function () { if (!started && v.readyState < 2) showCta('lento'); }, 20000);
+  // ao voltar à página com o vídeo parado, pede para continuar
+  document.addEventListener('visibilitychange', function () { if (!document.hidden && started && v.paused && !v.ended) btn.hidden = false; });
+  document.addEventListener('DOMContentLoaded', tryPlay);
+  if (document.readyState !== 'loading') tryPlay();
+})();
+</script>
 </body></html>
