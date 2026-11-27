@@ -2345,7 +2345,8 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var MIN_MS = 0;   // abre logo que a página carrega
+      var MIN_MS = 5000;   // só aparece 5 s depois de a página abrir
+      var MAX_MS = 20000;  // fica no máximo 20 s no ecrã
       var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyKKN44NeDU5WmvlUDQ_FYya6aT8JOChsrijlN80ySMNWpJECV1Cbl0UJJK6yjhQLIqvQ/exec';
       var modal = document.getElementById('modal-exit'), form = document.getElementById('popLead'), err = document.getElementById('popErr');
       var shown = false, t0 = Date.now(), done = false;
@@ -2353,7 +2354,7 @@
       function ev(n, x) { try { if (typeof gtag === 'function') gtag('event', n, x || {}); } catch (e) {} }
       function mostrar() {
         if (shown || done || (Date.now() - t0) < MIN_MS) return false;
-        shown = true; modal.style.display = 'flex'; ev('popup_email_shown'); try { window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'popup_email_shown' }); } catch (e) {} return true;
+        shown = true; modal.style.display = 'flex'; setTimeout(function () { var el = document.activeElement; var typing = form.contains(el) || form.nome.value || form.email.value; if (modal.style.display === 'flex' && !typing && document.getElementById('pop-form').style.display !== 'none') fechar(); }, MAX_MS); ev('popup_email_shown'); try { window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'popup_email_shown' }); } catch (e) {} return true;
       }
       function fechar() { modal.style.display = 'none'; try { sessionStorage.setItem('lead_popup_closed', '1'); } catch (e) {} }
       document.addEventListener('mouseleave', function (e) { if (e.clientY < 10) mostrar(); });
@@ -2362,7 +2363,7 @@
       window.addEventListener('popstate', function (e) {
         if (e.state && e.state.exitIntent) { if (!mostrar()) history.back(); }
       });
-      setTimeout(mostrar, 600);   // aparece logo ao abrir; o PageView (Pixel/GA4/GTM) já foi disparado no carregamento
+      setTimeout(mostrar, MIN_MS);   // aparece 5 s depois de abrir; o PageView (Pixel/GA4/GTM) já foi disparado no carregamento
       modal.addEventListener('click', function (e) { if (e.target === modal) fechar(); });
       document.getElementById('popClose').addEventListener('click', fechar);
       document.getElementById('popClose2').addEventListener('click', fechar);
