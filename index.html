@@ -1460,6 +1460,44 @@
       box-shadow: 0 0 0 1px rgba(255, 255, 255, .10), 0 22px 60px rgba(0, 0, 0, .65), 0 0 90px rgba(232, 131, 58, .22);
     }
     .hero-section .subheadline { text-shadow: 0 1px 10px rgba(0, 0, 0, .45); }
+
+    /* FUNDOS PROFISSIONAIS em toda a página: camadas de luz quente, veio de madeira subtil e filete laranja */
+    .resultados-section, .carousel-section, .dor-section, .artesanatos-section, .showcase-section,
+    .deliverables-section, .plans-section, .faq-section, .guarantee-section, .site-footer {
+      position: relative; isolation: isolate;
+    }
+    .resultados-section::before, .carousel-section::before, .dor-section::before, .artesanatos-section::before, .showcase-section::before,
+    .deliverables-section::before, .plans-section::before, .faq-section::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .16; mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='700'><filter id='g' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='0.003 0.2' numOctaves='3' seed='11'/><feColorMatrix values='0 0 0 0 .36  0 0 0 0 .22  0 0 0 0 .10  0 0 0 1.25 -.32'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>"); background-size: 700px 700px;
+    }
+    .resultados-section::after, .carousel-section::after, .dor-section::after, .artesanatos-section::after, .showcase-section::after,
+    .deliverables-section::after, .plans-section::after, .faq-section::after {
+      content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; z-index: 0; pointer-events: none;
+      background: linear-gradient(90deg, transparent 0%, rgba(232, 131, 58, .55) 30%, rgba(245, 178, 107, .75) 50%, rgba(232, 131, 58, .55) 70%, transparent 100%);
+    }
+    /* claros, alternando creme e branco quente */
+    .resultados-section, .artesanatos-section, .faq-section {
+      background: radial-gradient(ellipse 80% 55% at 50% 0%, rgba(232, 131, 58, .12), transparent 70%), linear-gradient(180deg, #FFFFFF 0%, #FAF5EC 100%);
+    }
+    .carousel-section, .dor-section, .showcase-section, .deliverables-section, .plans-section {
+      background: radial-gradient(ellipse 85% 50% at 50% 0%, rgba(232, 131, 58, .15), transparent 70%), radial-gradient(ellipse 70% 40% at 50% 100%, rgba(123, 74, 40, .08), transparent 70%), linear-gradient(180deg, #FBF7F0 0%, #F2EADD 100%);
+    }
+    /* escuros: mesmo tratamento do hero */
+    .guarantee-section, .site-footer {
+      background:
+        radial-gradient(ellipse 75% 50% at 50% 40%, rgba(232, 131, 58, .20) 0%, rgba(232, 131, 58, .06) 50%, transparent 72%),
+        radial-gradient(ellipse 130% 70% at 50% -5%, #34200F 0%, #1C1208 52%, #0F0904 100%);
+      box-shadow: inset 0 0 120px rgba(0, 0, 0, .5);
+    }
+    .guarantee-section::before, .site-footer::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .5; mix-blend-mode: soft-light;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='700'><filter id='g' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='0.003 0.2' numOctaves='3' seed='11'/><feColorMatrix values='0 0 0 0 .80  0 0 0 0 .58  0 0 0 0 .36  0 0 0 1.25 -.32'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>"); background-size: 700px 700px;
+    }
+    .guarantee-section::after, .site-footer::after {
+      content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; z-index: 0; pointer-events: none;
+      background: linear-gradient(90deg, transparent 0%, #E8833A 30%, #F5B26B 50%, #E8833A 70%, transparent 100%);
+    }
     /* PC / monitor: proporções mais contidas (o telemóvel não muda) */
     @media (min-width: 900px) {
       .hero-section { padding: 28px 24px 44px; }
