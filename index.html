@@ -1437,6 +1437,29 @@
     .hero-cta-top { display: none; }
     .hero-price { font-size: 0.85rem; color: #E8D5C0; margin: 10px 0 0; line-height: 1.4; }
     .hero-price strong { color: #fff; font-size: 1.05rem; }
+
+    /* HERO: fundo em camadas (luz quente atrás do vídeo, veio de madeira subtil, vinheta e filete laranja) */
+    .hero-section {
+      position: relative; isolation: isolate; overflow: hidden;
+      background:
+        radial-gradient(ellipse 75% 42% at 50% 46%, rgba(232, 131, 58, .26) 0%, rgba(232, 131, 58, .08) 48%, transparent 72%),
+        radial-gradient(ellipse 130% 70% at 50% -5%, #34200F 0%, #1C1208 52%, #0F0904 100%);
+      box-shadow: inset 0 0 140px rgba(0, 0, 0, .55);
+    }
+    .hero-section::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .55; mix-blend-mode: soft-light;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='700'><filter id='g' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='0.003 0.2' numOctaves='3' seed='11'/><feColorMatrix values='0 0 0 0 .80  0 0 0 0 .58  0 0 0 0 .36  0 0 0 1.25 -.32'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+      background-size: 700px 700px;
+    }
+    .hero-section::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; z-index: 0; pointer-events: none;
+      background: linear-gradient(90deg, transparent 0%, #E8833A 30%, #F5B26B 50%, #E8833A 70%, transparent 100%);
+    }
+    .hero-section .headline { text-shadow: 0 2px 18px rgba(0, 0, 0, .55); letter-spacing: .2px; }
+    .hero-section .vsl-box {
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, .10), 0 22px 60px rgba(0, 0, 0, .65), 0 0 90px rgba(232, 131, 58, .22);
+    }
+    .hero-section .subheadline { text-shadow: 0 1px 10px rgba(0, 0, 0, .45); }
     @media (max-width: 640px) {
       .hero-cta-top { display: block; margin: 0 0 18px; text-align: center; }
       .hero-section .headline { font-size: 1.45rem; line-height: 1.18; margin-bottom: 16px; }
