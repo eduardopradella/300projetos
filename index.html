@@ -1447,9 +1447,8 @@
       box-shadow: inset 0 0 140px rgba(0, 0, 0, .55);
     }
     .hero-section::before {
-      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .55; mix-blend-mode: soft-light;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='700'><filter id='g' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='0.003 0.2' numOctaves='3' seed='11'/><feColorMatrix values='0 0 0 0 .80  0 0 0 0 .58  0 0 0 0 .36  0 0 0 1.25 -.32'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
-      background-size: 700px 700px;
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background: url(image/grao-escuro.png) repeat; background-size: 256px 256px;
     }
     .hero-section::after {
       content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; z-index: 0; pointer-events: none;
@@ -1468,8 +1467,8 @@
     }
     .resultados-section::before, .carousel-section::before, .dor-section::before, .artesanatos-section::before, .showcase-section::before,
     .deliverables-section::before, .plans-section::before, .faq-section::before {
-      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .16; mix-blend-mode: multiply;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='700'><filter id='g' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='0.003 0.2' numOctaves='3' seed='11'/><feColorMatrix values='0 0 0 0 .36  0 0 0 0 .22  0 0 0 0 .10  0 0 0 1.25 -.32'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>"); background-size: 700px 700px;
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background: url(image/grao-claro.png) repeat; background-size: 256px 256px;
     }
     .resultados-section::after, .carousel-section::after, .dor-section::after, .artesanatos-section::after, .showcase-section::after,
     .deliverables-section::after, .plans-section::after, .faq-section::after {
@@ -1491,8 +1490,8 @@
       box-shadow: inset 0 0 120px rgba(0, 0, 0, .5);
     }
     .guarantee-section::before, .site-footer::before {
-      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .5; mix-blend-mode: soft-light;
-      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='700' height='700'><filter id='g' x='0' y='0' width='100%25' height='100%25'><feTurbulence type='fractalNoise' baseFrequency='0.003 0.2' numOctaves='3' seed='11'/><feColorMatrix values='0 0 0 0 .80  0 0 0 0 .58  0 0 0 0 .36  0 0 0 1.25 -.32'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>"); background-size: 700px 700px;
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background: url(image/grao-escuro.png) repeat; background-size: 256px 256px;
     }
     .guarantee-section::after, .site-footer::after {
       content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; z-index: 0; pointer-events: none;
@@ -2306,6 +2305,8 @@
 
   <!-- POP-UP DE CAPTAÇÃO DE E-MAIL (ficha A1 grátis); só aparece depois de 90 s na página -->
   <style>
+    body.pop-open *, body.pop-open *::before, body.pop-open *::after { animation-play-state: paused !important; }
+    .pop-in.err { border-color: #b00020; }
     .pop-in { width: 100%; box-sizing: border-box; padding: 13px 12px; margin: 0 0 10px; font: inherit; font-size: .95rem; border: 2px solid #ddd; border-radius: 8px; }
     .pop-in:focus { outline: 3px solid var(--laranja); outline-offset: 1px; border-color: var(--laranja); }
     .pop-btn { display: block; width: 100%; box-sizing: border-box; border: 0; cursor: pointer; background: #d00; color: #fff; font-family: inherit; font-weight: 900; font-size: 1.02rem; padding: 15px 12px; border-radius: 8px; text-align: center; text-decoration: none; text-transform: uppercase; letter-spacing: .3px; }
@@ -2323,13 +2324,11 @@
         <p style="color:#444; font-size:0.95rem; line-height:1.5; margin:0 0 16px;">Porta-chaves magnético com <strong>lista de corte, medidas em milímetros e passo a passo ilustrado</strong>. Recebes o PDF agora, sem cartão.</p>
         <form id="popLead" novalidate>
           <input type="text" name="website" id="popWebsite" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0">
-          <label for="popNome" style="position:absolute;left:-9999px">Primeiro nome</label>
-          <input class="pop-in" type="text" id="popNome" name="nome" placeholder="Primeiro nome (opcional)" autocomplete="given-name" required>
           <label for="popEmail" style="position:absolute;left:-9999px">E-mail</label>
-          <input class="pop-in" type="email" id="popEmail" name="email" placeholder="O teu e-mail" autocomplete="email" inputmode="email" required>
-          <label class="pop-chk"><input type="checkbox" id="popOk" required><span>Aceito receber a ficha e algumas mensagens sobre o PDF por e-mail. Posso cancelar quando quiser.</span></label>
+          <input class="pop-in" type="email" id="popEmail" name="email" placeholder="O teu melhor e-mail" autocomplete="email" inputmode="email" enterkeyhint="send" autocapitalize="none" spellcheck="false" required>
           <div class="pop-err" id="popErr" role="alert"></div>
           <button type="submit" class="pop-btn" id="popBtn">Receber a ficha grátis</button>
+          <p style="font-size:.74rem;line-height:1.4;color:#666;margin:10px 0 0;">Ao carregares no botão, aceitas receber a ficha e algumas mensagens sobre o PDF por e-mail. Cancelas quando quiseres.</p>
         </form>
         <button type="button" class="pop-x" id="popClose">Não, obrigado</button>
       </div>
@@ -2346,7 +2345,6 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var MIN_MS = 3000;   // só ao tentar sair (rato a sair pelo topo / botão «voltar»); ignora saídas nos primeiros 3 s
-      var MAX_MS = 20000;  // fica no máximo 20 s no ecrã
       var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyKKN44NeDU5WmvlUDQ_FYya6aT8JOChsrijlN80ySMNWpJECV1Cbl0UJJK6yjhQLIqvQ/exec';
       var modal = document.getElementById('modal-exit'), form = document.getElementById('popLead'), err = document.getElementById('popErr');
       var shown = false, t0 = Date.now(), done = false;
@@ -2354,9 +2352,19 @@
       function ev(n, x) { try { if (typeof gtag === 'function') gtag('event', n, x || {}); } catch (e) {} }
       function mostrar(force) {
         if (shown || done || (!force && (Date.now() - t0) < MIN_MS)) return false;
-        shown = true; modal.style.display = 'flex'; setTimeout(function () { var el = document.activeElement; var typing = form.contains(el) || form.nome.value || form.email.value; if (modal.style.display === 'flex' && !typing && document.getElementById('pop-form').style.display !== 'none') fechar(); }, MAX_MS); ev('popup_email_shown'); try { window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'popup_email_shown' }); } catch (e) {} return true;
+        shown = true; abrir(); ev('popup_email_shown'); try { window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'popup_email_shown' }); } catch (e) {} return true;
       }
-      function fechar() { modal.style.display = 'none'; try { sessionStorage.setItem('lead_popup_closed', '1'); } catch (e) {} }
+      var vsl = document.getElementById('vsl'), vslWasPlaying = false;
+      function abrir() {
+        modal.style.display = 'flex'; document.body.classList.add('pop-open');
+        try { if (vsl && !vsl.paused) { vslWasPlaying = true; vsl.pause(); } } catch (e) {}
+        if (window.matchMedia && window.matchMedia('(pointer: fine)').matches) setTimeout(function () { try { form.email.focus({ preventScroll: true }); } catch (e) {} }, 60);
+      }
+      function fechar() {
+        modal.style.display = 'none'; document.body.classList.remove('pop-open');
+        try { sessionStorage.setItem('lead_popup_closed', '1'); } catch (e) {}
+        try { if (vsl && vslWasPlaying) { vslWasPlaying = false; vsl.play(); } } catch (e) {}
+      }
       document.addEventListener('mouseleave', function (e) { if (e.clientY < 10) mostrar(); });
       // Telemóvel: botão «voltar». A entrada atual fica marcada e é criada outra por cima.
       try { history.replaceState({ exitIntent: true }, '', location.href); history.pushState({ trap: true }, '', location.href); } catch (e) {}
@@ -2369,10 +2377,10 @@
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.style.display === 'flex') fechar(); });
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-        var nome = form.nome.value.trim(), email = form.email.value.trim(), ok = document.getElementById('popOk').checked, msg = '';
-        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) msg = 'Confirma o e-mail.';
-        else if (!ok) msg = 'Marca a caixa para receberes a ficha.';
-        if (msg) { err.textContent = msg; err.style.display = 'block'; return; }
+        var nome = '', email = form.email.value.trim(), msg = '';
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) msg = 'Confirma o e-mail (ex.: nome@gmail.com).';
+        if (msg) { err.textContent = msg; err.style.display = 'block'; form.email.classList.add('err'); form.email.focus(); return; }
+        form.email.classList.remove('err');
         err.style.display = 'none';
         var btn = document.getElementById('popBtn'); btn.disabled = true; btn.textContent = 'A enviar...';
         var q = new URLSearchParams(location.search), utm = {};
