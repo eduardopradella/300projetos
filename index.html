@@ -2324,7 +2324,7 @@
         <form id="popLead" novalidate>
           <input type="text" name="website" id="popWebsite" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0">
           <label for="popNome" style="position:absolute;left:-9999px">Primeiro nome</label>
-          <input class="pop-in" type="text" id="popNome" name="nome" placeholder="Primeiro nome" autocomplete="given-name" required>
+          <input class="pop-in" type="text" id="popNome" name="nome" placeholder="Primeiro nome (opcional)" autocomplete="given-name" required>
           <label for="popEmail" style="position:absolute;left:-9999px">E-mail</label>
           <input class="pop-in" type="email" id="popEmail" name="email" placeholder="O teu e-mail" autocomplete="email" inputmode="email" required>
           <label class="pop-chk"><input type="checkbox" id="popOk" required><span>Aceito receber a ficha e algumas mensagens sobre o PDF por e-mail. Posso cancelar quando quiser.</span></label>
@@ -2345,15 +2345,15 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var MIN_MS = 5000;   // só aparece 5 s depois de a página abrir
+      var MIN_MS = 3000;   // só ao tentar sair (rato a sair pelo topo / botão «voltar»); ignora saídas nos primeiros 3 s
       var MAX_MS = 20000;  // fica no máximo 20 s no ecrã
       var ENDPOINT = 'https://script.google.com/macros/s/AKfycbyKKN44NeDU5WmvlUDQ_FYya6aT8JOChsrijlN80ySMNWpJECV1Cbl0UJJK6yjhQLIqvQ/exec';
       var modal = document.getElementById('modal-exit'), form = document.getElementById('popLead'), err = document.getElementById('popErr');
       var shown = false, t0 = Date.now(), done = false;
       try { done = localStorage.getItem('lead_popup') === '1' || sessionStorage.getItem('lead_popup_closed') === '1'; } catch (e) {}
       function ev(n, x) { try { if (typeof gtag === 'function') gtag('event', n, x || {}); } catch (e) {} }
-      function mostrar() {
-        if (shown || done || (Date.now() - t0) < MIN_MS) return false;
+      function mostrar(force) {
+        if (shown || done || (!force && (Date.now() - t0) < MIN_MS)) return false;
         shown = true; modal.style.display = 'flex'; setTimeout(function () { var el = document.activeElement; var typing = form.contains(el) || form.nome.value || form.email.value; if (modal.style.display === 'flex' && !typing && document.getElementById('pop-form').style.display !== 'none') fechar(); }, MAX_MS); ev('popup_email_shown'); try { window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'popup_email_shown' }); } catch (e) {} return true;
       }
       function fechar() { modal.style.display = 'none'; try { sessionStorage.setItem('lead_popup_closed', '1'); } catch (e) {} }
@@ -2361,9 +2361,8 @@
       // Telemóvel: botão «voltar». A entrada atual fica marcada e é criada outra por cima.
       try { history.replaceState({ exitIntent: true }, '', location.href); history.pushState({ trap: true }, '', location.href); } catch (e) {}
       window.addEventListener('popstate', function (e) {
-        if (e.state && e.state.exitIntent) { if (!mostrar()) history.back(); }
+        if (e.state && e.state.exitIntent) { if (!mostrar(true)) history.back(); }
       });
-      setTimeout(mostrar, MIN_MS);   // aparece 5 s depois de abrir; o PageView (Pixel/GA4/GTM) já foi disparado no carregamento
       modal.addEventListener('click', function (e) { if (e.target === modal) fechar(); });
       document.getElementById('popClose').addEventListener('click', fechar);
       document.getElementById('popClose2').addEventListener('click', fechar);
@@ -2371,8 +2370,7 @@
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         var nome = form.nome.value.trim(), email = form.email.value.trim(), ok = document.getElementById('popOk').checked, msg = '';
-        if (!nome) msg = 'Escreve o teu primeiro nome.';
-        else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) msg = 'Confirma o e-mail.';
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) msg = 'Confirma o e-mail.';
         else if (!ok) msg = 'Marca a caixa para receberes a ficha.';
         if (msg) { err.textContent = msg; err.style.display = 'block'; return; }
         err.style.display = 'none';
